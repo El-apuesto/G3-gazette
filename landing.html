@@ -1,0 +1,173 @@
+---
+layout: default
+permalink: /
+---
+
+<!-- Hero Section with Uncle's Story -->
+<section class="hero-section">
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-title">Grant Hustle</h1>
+      <p class="hero-tagline">Turning Loss Into Legacy</p>
+      
+      <!-- Uncle's Story Placeholder -->
+      <div class="story-box">
+        <p class="story-text">
+          <!-- TODO: Add your uncle's story here -->
+          When my uncle passed away, I realized how many dreams go unfunded. 
+          Grant Hustle was born from that moment - a commitment to help creators, 
+          nonprofits, and entrepreneurs find the funding they need to turn their 
+          visions into reality.
+        </p>
+      </div>
+    </div>
+    
+    <div class="hero-actions">
+      <a href="https://app.granthustle.org" class="btn btn-primary btn-large">
+        <span class="btn-icon">🚀</span> Launch App
+      </a>
+      <a href="https://blog.granthustle.org" class="btn btn-secondary btn-large">
+        <span class="btn-icon">📰</span> View G³ Blog
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- Mission Statement -->
+<section class="mission-section">
+  <div class="container">
+    <h2>Our Mission</h2>
+    <p class="mission-text">
+      <!-- TODO: Replace with your actual mission statement -->
+      At Grant Hustle, we believe that funding shouldn't be a barrier to impact. 
+      Our mission is to democratize access to grants through intelligent search, 
+      real-time alerts, and a community dedicated to making funding accessible 
+      for everyone - from solo artists to established nonprofits.
+    </p>
+  </div>
+</section>
+
+<!-- Grant News & Deadlines -->
+<section class="grant-updates-section">
+  <div class="container">
+    <div class="updates-grid">
+      
+      <!-- Grant News -->
+      <div class="update-card">
+        <h2>📢 Latest Grant News</h2>
+        <div class="news-list">
+          <article class="news-item">
+            <span class="news-date">Jan 3, 2026</span>
+            <h3>Federal Arts Funding Increased for 2026</h3>
+            <p>NEA announces $180M available for individual artists and organizations.</p>
+            <a href="#" class="read-more">Read more →</a>
+          </article>
+          
+          <article class="news-item">
+            <span class="news-date">Jan 2, 2026</span>
+            <h3>New SBIR/STTR Programs Open</h3>
+            <p>Technology startups can now apply for up to $1.8M in non-dilutive funding.</p>
+            <a href="#" class="read-more">Read more →</a>
+          </article>
+          
+          <article class="news-item">
+            <span class="news-date">Dec 30, 2025</span>
+            <h3>Education Grants Extended to Q2</h3>
+            <p>Department of Education extends application deadlines through June 2026.</p>
+            <a href="#" class="read-more">Read more →</a>
+          </article>
+        </div>
+        <a href="/news" class="btn btn-outline">View All News</a>
+      </div>
+      
+      <!-- Upcoming Deadlines -->
+      <div class="update-card deadline-card">
+        <h2>⏰ Big Deadlines Coming Up</h2>
+        <div class="deadline-list">
+          <div class="deadline-item urgent">
+            <div class="deadline-date">
+              <span class="date-day">15</span>
+              <span class="date-month">JAN</span>
+            </div>
+            <div class="deadline-info">
+              <h3>NEA Artist Fellowship</h3>
+              <p class="deadline-amount">Up to $25,000</p>
+              <span class="deadline-label urgent-label">Urgent</span>
+            </div>
+          </div>
+          
+          <div class="deadline-item">
+            <div class="deadline-date">
+              <span class="date-day">31</span>
+              <span class="date-month">JAN</span>
+            </div>
+            <div class="deadline-info">
+              <h3>USDA Rural Development</h3>
+              <p class="deadline-amount">Up to $500,000</p>
+              <span class="deadline-label">This Month</span>
+            </div>
+          </div>
+          
+          <div class="deadline-item">
+            <div class="deadline-date">
+              <span class="date-day">14</span>
+              <span class="date-month">FEB</span>
+            </div>
+            <div class="deadline-info">
+              <h3>NSF Research Grants</h3>
+              <p class="deadline-amount">Varies</p>
+              <span class="deadline-label">Next Month</span>
+            </div>
+          </div>
+        </div>
+        <a href="/deadlines" class="btn btn-outline">See All Deadlines</a>
+      </div>
+      
+    </div>
+  </div>
+</section>
+
+<!-- Recent Blog Posts -->
+<section class="blog-preview-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Latest from G³ - Grant Genie Gazette</h2>
+      <a href="https://blog.granthustle.org" class="view-all">View All Posts →</a>
+    </div>
+    
+    <div class="blog-grid">
+      {% for post in site.posts limit:3 %}
+      <article class="blog-card">
+        {% if post.featured_image %}
+        <div class="blog-image">
+          <img src="{{ post.featured_image }}" alt="{{ post.title }}">
+        </div>
+        {% endif %}
+        <div class="blog-content">
+          <span class="blog-category">{{ post.category }}</span>
+          <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+          <p class="blog-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+          <div class="blog-meta">
+            <time>{{ post.date | date: "%B %-d, %Y" }}</time>
+            <a href="{{ post.url }}" class="read-more">Read more →</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-content">
+      <h2>Ready to Find Your Perfect Grant?</h2>
+      <p>Join thousands of grant seekers using Grant Geenie to discover funding opportunities tailored to their needs.</p>
+      <div class="cta-buttons">
+        <a href="https://app.granthustle.org" class="btn btn-primary btn-large">Start Searching Now</a>
+        <a href="/about" class="btn btn-outline-light btn-large">Learn More</a>
+      </div>
+    </div>
+  </div>
+</section>
