@@ -1,54 +1,272 @@
----
-layout: home
-title: Home
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grant Hustle - Find Your Perfect Grant Opportunity</title>
+    <meta name="description" content="Grant Hustle helps nonprofits, artists, and solopreneurs find and apply for grants. Powered by Grant Geenie AI.">
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="main-nav">
+        <div class="container">
+            <div class="nav-wrapper">
+                <div class="logo">
+                    <a href="/">Grant Hustle</a>
+                </div>
+                <div class="nav-menu">
+                    <div class="dropdown">
+                        <button class="dropbtn">Menu ▼</button>
+                        <div class="dropdown-content">
+                            <a href="#about">About / Mission</a>
+                            <a href="/resources.html">Resources</a>
+                            <a href="/affiliate.html">Affiliate Program</a>
+                            <a href="/referral.html">Referral Program</a>
+                            <a href="/terms.html">Terms of Service</a>
+                            <a href="/privacy.html">Privacy Policy</a>
+                            <a href="/refund.html">Refund Policy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
 
-<div class="home">
-  <h1 class="page-heading">Welcome to G³ - Grant Genie Gazette</h1>
-  
-  <section class="recent-posts">
-    <h2>This Week's Articles</h2>
-    {% assign today = site.time | date: '%s' %}
-    {% assign week_ago = today | minus: 604800 %}
-    
-    <div class="post-list">
-      {% for post in site.posts %}
-        {% assign post_date = post.date | date: '%s' %}
-        {% if post_date >= week_ago %}
-          <article class="post-preview">
-            <h3>
-              <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
-            </h3>
-            <p class="post-meta">
-              <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%B %-d, %Y" }}</time>
-              {% if post.author %} • {{ post.author }}{% endif %}
-              {% if post.category %} • {{ post.category }}{% endif %}
-            </p>
-            {% if post.featured_image %}
-              <img src="{{ post.featured_image }}" alt="{{ post.title }}" class="post-featured-image">
-            {% endif %}
-            <p>{{ post.excerpt | strip_html | truncatewords: 30 }}</p>
-            <a href="{{ post.url | relative_url }}" class="read-more">Read more →</a>
-          </article>
-        {% endif %}
-      {% endfor %}
-    </div>
-  </section>
+    <!-- Hero Section with Uncle's Story -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <div class="story-badge">Our Story</div>
+                <h1><!-- PLACEHOLDER: Uncle's Story Title -->
+                    Why We Built Grant Hustle
+                </h1>
+                <div class="story-text">
+                    <!-- PLACEHOLDER: Uncle's Story Content -->
+                    <p><em>[Your uncle's story will go here - the personal connection that inspired Grant Hustle]</em></p>
+                    <p>This powerful story drives our mission to make grant funding accessible to everyone who needs it.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-  <section class="categories">
-    <h2>Browse by Category</h2>
-    <div class="category-grid">
-      <a href="{{ '/category/monday' | relative_url }}" class="category-card">Innovation Monday</a>
-      <a href="{{ '/category/tuesday' | relative_url }}" class="category-card">Tutorial Tuesday</a>
-      <a href="{{ '/category/wednesday' | relative_url }}" class="category-card">Wisdom Wednesday</a>
-      <a href="{{ '/category/thursday' | relative_url }}" class="category-card">Thought Thursday</a>
-      <a href="{{ '/category/friday' | relative_url }}" class="category-card">Feature Friday</a>
-      <a href="{{ '/category/saturday' | relative_url }}" class="category-card">Strategy Saturday</a>
-      <a href="{{ '/category/sunday' | relative_url }}" class="category-card">Summary Sunday</a>
-    </div>
-  </section>
+    <!-- CTA Buttons -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-buttons">
+                <a href="https://app.granthustle.org" class="btn btn-primary btn-large">
+                    🚀 Launch Grant Geenie App
+                </a>
+                <a href="https://blog.granthustle.org" class="btn btn-secondary btn-large">
+                    📰 Read G³ Blog
+                </a>
+            </div>
+        </div>
+    </section>
 
-  <section class="archive-link">
-    <a href="{{ '/archive' | relative_url }}" class="btn">View All Articles →</a>
-  </section>
-</div>
+    <!-- Mission Statement -->
+    <section id="about" class="mission-section">
+        <div class="container">
+            <h2>Our Mission</h2>
+            <div class="mission-content">
+                <!-- PLACEHOLDER: Mission Statement -->
+                <p><em>[Your mission statement will go here - why Grant Hustle exists and who you serve]</em></p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Grant News Section -->
+    <section class="grant-news-section">
+        <div class="container">
+            <h2>Latest Grant News & Opportunities</h2>
+            <div class="news-grid">
+                <div class="news-card">
+                    <div class="news-tag">Federal</div>
+                    <h3>New Federal Grant Opportunities</h3>
+                    <p>Explore the latest federal funding opportunities for nonprofits and small businesses.</p>
+                    <a href="#" class="news-link">Learn More →</a>
+                </div>
+                <div class="news-card">
+                    <div class="news-tag">Arts</div>
+                    <h3>Artist Grant Programs 2026</h3>
+                    <p>Discover funding opportunities specifically designed for creative professionals and artists.</p>
+                    <a href="#" class="news-link">Learn More →</a>
+                </div>
+                <div class="news-card">
+                    <div class="news-tag">Nonprofit</div>
+                    <h3>Community Foundation Grants</h3>
+                    <p>Local and regional grants available for community-focused nonprofit organizations.</p>
+                    <a href="#" class="news-link">Learn More →</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Upcoming Deadlines -->
+    <section class="deadlines-section">
+        <div class="container">
+            <h2>⏰ Upcoming Grant Deadlines</h2>
+            <div class="deadlines-list">
+                <div class="deadline-item urgent">
+                    <div class="deadline-date">Jan 15, 2026</div>
+                    <div class="deadline-info">
+                        <h3>National Endowment for the Arts</h3>
+                        <p>Creative Writing Fellowships - $25,000 awards</p>
+                        <span class="deadline-tag">7 days left</span>
+                    </div>
+                </div>
+                <div class="deadline-item">
+                    <div class="deadline-date">Jan 31, 2026</div>
+                    <div class="deadline-info">
+                        <h3>Small Business Innovation Research</h3>
+                        <p>Phase I SBIR Grants - Up to $250,000</p>
+                        <span class="deadline-tag">23 days left</span>
+                    </div>
+                </div>
+                <div class="deadline-item">
+                    <div class="deadline-date">Feb 14, 2026</div>
+                    <div class="deadline-info">
+                        <h3>Community Development Block Grants</h3>
+                        <p>Housing and urban development funding</p>
+                        <span class="deadline-tag">37 days left</span>
+                    </div>
+                </div>
+            </div>
+            <div class="deadlines-cta">
+                <a href="https://app.granthustle.org" class="btn btn-primary">Find More Deadlines in Grant Geenie →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Blog Preview Section -->
+    <section class="blog-preview-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Latest from G³ - Grant Genie Gazette</h2>
+                <a href="https://blog.granthustle.org" class="view-all-link">View All Articles →</a>
+            </div>
+            <div class="blog-grid">
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="/assets/images/placeholders/blog-1.jpg" alt="Blog post">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Innovation Monday</span>
+                        <h3>5 Grant Writing Tips That Actually Work</h3>
+                        <p>Discover proven strategies to make your grant applications stand out...</p>
+                        <a href="https://blog.granthustle.org" class="read-more">Read More →</a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="/assets/images/placeholders/blog-2.jpg" alt="Blog post">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Feature Friday</span>
+                        <h3>How Grant Geenie Uses AI to Match Grants</h3>
+                        <p>Learn about the technology behind our intelligent grant matching system...</p>
+                        <a href="https://blog.granthustle.org" class="read-more">Read More →</a>
+                    </div>
+                </article>
+                <article class="blog-card">
+                    <div class="blog-image">
+                        <img src="/assets/images/placeholders/blog-3.jpg" alt="Blog post">
+                    </div>
+                    <div class="blog-content">
+                        <span class="blog-category">Wisdom Wednesday</span>
+                        <h3>Understanding Federal vs State Grants</h3>
+                        <p>Navigate the differences between federal and state funding opportunities...</p>
+                        <a href="https://blog.granthustle.org" class="read-more">Read More →</a>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features-section">
+        <div class="container">
+            <h2>Why Choose Grant Geenie?</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Smart Matching</h3>
+                    <p>AI-powered algorithm matches you with grants that fit your profile and goals.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🗺️</div>
+                    <h3>State Filtering</h3>
+                    <p>Find federal grants filtered by your state's specific requirements and opportunities.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⏱️</div>
+                    <h3>Deadline Tracking</h3>
+                    <p>Never miss an opportunity with our comprehensive deadline tracking system.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📊</div>
+                    <h3>Success Analytics</h3>
+                    <p>Track your applications and improve your success rate over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Newsletter Signup -->
+    <section class="newsletter-section">
+        <div class="container">
+            <div class="newsletter-content">
+                <h2>Stay Updated on Grant Opportunities</h2>
+                <p>Get weekly grant deadlines, tips, and opportunities delivered to your inbox.</p>
+                <form class="newsletter-form" action="#" method="post">
+                    <input type="email" placeholder="Enter your email address" required>
+                    <button type="submit" class="btn btn-primary">Subscribe</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <h4>Grant Hustle</h4>
+                    <p>Making grant funding accessible to nonprofits, artists, and solopreneurs.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="https://app.granthustle.org">Grant Geenie App</a></li>
+                        <li><a href="https://blog.granthustle.org">G³ Blog</a></li>
+                        <li><a href="/resources.html">Resources</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Programs</h4>
+                    <ul>
+                        <li><a href="/affiliate.html">Affiliate Marketing</a></li>
+                        <li><a href="/referral.html">Referral Program</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/terms.html">Terms of Service</a></li>
+                        <li><a href="/privacy.html">Privacy Policy</a></li>
+                        <li><a href="/refund.html">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Grant Hustle. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="/assets/js/main.js"></script>
+</body>
+</html>

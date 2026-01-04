@@ -1,0 +1,16 @@
+# Homepage Images Folder
+
+Place your homepage images here. You can control:
+- Position: Use CSS classes or inline styles
+- Size: Specify width/height in HTML or CSS
+- Layout: Grid, flex, or custom positioning
+
+## Example Usage:
+
+```html
+<img src="/assets/images/homepage/my-image.jpg" 
+     alt="Description" 
+     style="width: 300px; position: absolute; top: 20px; left: 50px;">
+```
+
+Or use CSS classes defined in main.css
