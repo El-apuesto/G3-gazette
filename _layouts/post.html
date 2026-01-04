@@ -1,0 +1,82 @@
+---
+layout: default
+---
+
+<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
+  <header class="post-header">
+    <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+    <p class="post-meta">
+      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+        {{ page.date | date: "%B %-d, %Y" }}
+      </time>
+      {% if page.author %}
+        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <span itemprop="name">• By {{ page.author }}</span>
+        </span>
+      {% endif %}
+      {% if page.category %}
+        • <span class="post-category">{{ page.category }}</span>
+      {% endif %}
+    </p>
+  </header>
+
+  {% if page.featured_image %}
+    <div class="post-featured-image">
+      <img src="{{ page.featured_image }}" alt="{{ page.title }}" itemprop="image">
+    </div>
+  {% endif %}
+
+  <div class="post-content" itemprop="articleBody">
+    {{ content }}
+  </div>
+
+  <footer class="post-footer">
+    <div class="share-buttons">
+      <h3>Share this article:</h3>
+      <a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ page.url | absolute_url | uri_escape }}" 
+         target="_blank" rel="noopener" class="share-btn twitter">
+        Share on Twitter
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | uri_escape }}" 
+         target="_blank" rel="noopener" class="share-btn facebook">
+        Share on Facebook
+      </a>
+      <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | uri_escape }}" 
+         target="_blank" rel="noopener" class="share-btn linkedin">
+        Share on LinkedIn
+      </a>
+      <button onclick="navigator.clipboard.writeText('{{ page.url | absolute_url }}');alert('Link copied!')" 
+              class="share-btn copy-link">
+        Copy Link
+      </button>
+    </div>
+
+    {% if site.comments.enabled %}
+    <div class="comments-section">
+      <h3>Comments</h3>
+      <p class="comments-notice">
+        <strong>Note:</strong> All comments are moderated before appearing. 
+        Please keep discussions respectful and constructive.
+      </p>
+      
+      <!-- Giscus Comments -->
+      <script src="https://giscus.app/client.js"
+              data-repo="{{ site.comments.giscus.repo }}"
+              data-repo-id="{{ site.comments.giscus.repo_id }}"
+              data-category="{{ site.comments.giscus.category }}"
+              data-category-id="{{ site.comments.giscus.category_id }}"
+              data-mapping="{{ site.comments.giscus.mapping }}"
+              data-strict="0"
+              data-reactions-enabled="{{ site.comments.giscus.reactions_enabled }}"
+              data-emit-metadata="{{ site.comments.giscus.emit_metadata }}"
+              data-input-position="top"
+              data-theme="{{ site.comments.giscus.theme }}"
+              data-lang="{{ site.comments.giscus.lang }}"
+              data-loading="{{ site.comments.giscus.loading }}"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+    {% endif %}
+  </footer>
+</article>

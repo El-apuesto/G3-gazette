@@ -1,0 +1,75 @@
+name: Comment Moderation
+
+on:
+  discussion_comment:
+    types: [created]
+  issue_comment:
+    types: [created]
+
+jobs:
+  moderate-comment:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Check comment for inappropriate content
+        id: check_content
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const comment = context.payload.comment.body.toLowerCase();
+            
+            // List of prohibited words/phrases (customize as needed)
+            const bannedWords = [
+              'spam', 'scam', 'hate', 'offensive',
+              // Add more as needed
+            ];
+            
+            // Check for banned words
+            const hasBannedContent = bannedWords.some(word => comment.includes(word));
+            
+            // Check for excessive caps (shouting)
+            const capsRatio = (comment.match(/[A-Z]/g) || []).length / comment.length;
+            const isExcessiveCaps = capsRatio > 0.5 && comment.length > 20;
+            
+            // Check for excessive links (potential spam)
+            const linkCount = (comment.match(/https?:\/\//g) || []).length;
+            const isSpammy = linkCount > 3;
+            
+            if (hasBannedContent || isExcessiveCaps || isSpammy) {
+              // Hide the comment
+              await github.rest.repos.createCommitComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                commit_sha: context.sha,
+                body: '⚠️ This comment has been flagged for moderation review.'
+              });
+              
+              // Minimize the comment
+              const commentId = context.payload.comment.node_id;
+              await github.graphql(`
+                mutation {
+                  minimizeComment(input: {subjectId: "${commentId}", classifier: SPAM}) {
+                    minimizedComment {
+                      isMinimized
+                    }
+                  }
+                }
+              `);
+              
+              core.setOutput('flagged', 'true');
+            } else {
+              core.setOutput('flagged', 'false');
+            }
+
+      - name: Notify moderators if flagged
+        if: steps.check_content.outputs.flagged == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: '⚠️ Comment Flagged for Review',
+              body: `A comment has been flagged for moderation review.\n\nComment ID: ${context.payload.comment.id}\nAuthor: ${context.payload.comment.user.login}\nLink: ${context.payload.comment.html_url}`,
+              labels: ['moderation', 'needs-review']
+            });

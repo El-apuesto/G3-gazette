@@ -1,0 +1,62 @@
+title: "G³ - Grant Genie Gazette"
+description: "Your daily dose of insights, research, and discovery"
+author:
+  name: "Grant Genie Team"
+  email: "contact@grantgenie.com"
+baseurl: "/G3-gazette"
+url: "https://El-apuesto.github.io"
+
+# Build settings
+theme: minima
+markdown: kramdown
+permalink: /:categories/:year/:month/:day/:title/
+
+# Plugins
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Collections
+collections:
+  posts:
+    output: true
+    permalink: /posts/:year/:month/:day/:title/
+
+# Pagination
+paginate: 7
+paginate_path: "/page/:num/"
+
+# Comments (using giscus - GitHub Discussions based)
+comments:
+  enabled: true
+  giscus:
+    repo: "El-apuesto/G3-gazette"
+    repo_id: "R_kgDONRWqqg"
+    category: "Comments"
+    category_id: "DIC_kwDONRWqqs4CmJKS"
+    mapping: "pathname"
+    reactions_enabled: "1"
+    emit_metadata: "0"
+    theme: "light"
+    lang: "en"
+    loading: "lazy"
+
+# Daily categories
+daily_categories:
+  monday: "Innovation Monday"
+  tuesday: "Tutorial Tuesday"
+  wednesday: "Wisdom Wednesday"
+  thursday: "Thought Thursday"
+  friday: "Feature Friday"
+  saturday: "Strategy Saturday"
+  sunday: "Summary Sunday"
+
+# Exclude from processing
+exclude:
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - vendor
+  - .github
+  - scripts
