@@ -3,8 +3,8 @@ description: "Your daily dose of insights, research, and discovery"
 author:
   name: "Grant Genie Team"
   email: "contact@grantgenie.com"
-baseurl: "/G3-gazette"
-url: "https://El-apuesto.github.io"
+baseurl: ""
+url: "https://blog.granthustle.org"
 
 # Build settings
 theme: minima
