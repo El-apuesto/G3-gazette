@@ -1,0 +1,110 @@
+---
+layout: default
+title: "G³ - Grant Genie Gazette"
+---
+
+<!-- Featured Post Section -->
+{% if site.posts.size > 0 %}
+<section class="featured-post">
+  {% assign featured_post = site.posts.first %}
+  <article class="post-featured">
+    {% if featured_post.featured_image %}
+    <div class="featured-image">
+      <img src="{{ featured_post.featured_image }}" alt="{{ featured_post.title }}">
+    </div>
+    {% endif %}
+    <div class="featured-content">
+      <span class="post-category">{{ featured_post.category }}</span>
+      <h1><a href="{{ featured_post.url }}">{{ featured_post.title }}</a></h1>
+      <div class="post-meta">
+        <time datetime="{{ featured_post.date | date_to_xmlschema }}">{{ featured_post.date | date: "%B %-d, %Y" }}</time>
+        <span class="separator">•</span>
+        <span class="author">{{ featured_post.author }}</span>
+      </div>
+      <p class="excerpt">{{ featured_post.excerpt | strip_html | truncatewords: 40 }}</p>
+      <a href="{{ featured_post.url }}" class="btn btn-primary">Read More</a>
+    </div>
+  </article>
+</section>
+{% endif %}
+
+<!-- Recent Posts Grid -->
+<section class="recent-posts">
+  <div class="section-header">
+    <h2>Recent Articles</h2>
+  </div>
+  
+  <div class="posts-grid">
+    {% for post in site.posts limit:9 offset:1 %}
+    <article class="post-card">
+      {% if post.featured_image %}
+      <div class="post-image">
+        <a href="{{ post.url }}">
+          <img src="{{ post.featured_image }}" alt="{{ post.title }}">
+        </a>
+      </div>
+      {% endif %}
+      <div class="post-content">
+        <span class="post-category">{{ post.category }}</span>
+        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+        <div class="post-meta">
+          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+        </div>
+        <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+        <a href="{{ post.url }}" class="read-more">Read more →</a>
+      </div>
+    </article>
+    {% endfor %}
+  </div>
+</section>
+
+<!-- Categories Section -->
+<section class="categories-section">
+  <h2>Explore by Category</h2>
+  <div class="categories-grid">
+    <a href="/archive.html?category=Innovation Monday" class="category-card">
+      <span class="category-icon">💡</span>
+      <h3>Innovation Monday</h3>
+      <p>Cutting-edge research and discoveries</p>
+    </a>
+    <a href="/archive.html?category=Tutorial Tuesday" class="category-card">
+      <span class="category-icon">📚</span>
+      <h3>Tutorial Tuesday</h3>
+      <p>Step-by-step guides and how-tos</p>
+    </a>
+    <a href="/archive.html?category=Wisdom Wednesday" class="category-card">
+      <span class="category-icon">🧠</span>
+      <h3>Wisdom Wednesday</h3>
+      <p>Insights and thought leadership</p>
+    </a>
+    <a href="/archive.html?category=Thought Thursday" class="category-card">
+      <span class="category-icon">💭</span>
+      <h3>Thought Thursday</h3>
+      <p>Deep dives and analysis</p>
+    </a>
+    <a href="/archive.html?category=Feature Friday" class="category-card">
+      <span class="category-icon">⭐</span>
+      <h3>Feature Friday</h3>
+      <p>Spotlights and highlights</p>
+    </a>
+    <a href="/archive.html?category=Strategy Saturday" class="category-card">
+      <span class="category-icon">🎯</span>
+      <h3>Strategy Saturday</h3>
+      <p>Planning and best practices</p>
+    </a>
+    <a href="/archive.html?category=Summary Sunday" class="category-card">
+      <span class="category-icon">📊</span>
+      <h3>Summary Sunday</h3>
+      <p>Weekly roundups and reviews</p>
+    </a>
+  </div>
+</section>
+
+<!-- Newsletter CTA -->
+<section class="newsletter-cta">
+  <div class="cta-content">
+    <h2>Never Miss an Update</h2>
+    <p>Get the latest insights, research, and discoveries delivered to your inbox.</p>
+    <a href="/newsletter" class="btn btn-primary btn-large">Subscribe to Newsletter</a>
+  </div>
+</section>
