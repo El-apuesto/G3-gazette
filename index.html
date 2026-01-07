@@ -1,0 +1,127 @@
+---
+layout: default
+title: "G³ - Grant Genie Gazette"
+---
+
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="hero-content">
+      <h1 class="hero-title">G³ - Grant Genie Gazette</h1>
+      <p class="hero-tagline">Your daily dose of insights, research, and discovery</p>
+      <p class="hero-description">
+        Exploring innovation, sharing knowledge, and uncovering the stories that matter.
+        Join us on a journey through technology, science, and human achievement.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- Featured Post -->
+{% if site.posts.size > 0 %}
+{% assign featured_post = site.posts.first %}
+<section class="featured-post-section">
+  <div class="container">
+    <h2>Featured This Week</h2>
+    <article class="featured-post">
+      {% if featured_post.featured_image %}
+      <div class="featured-image">
+        <img src="{{ featured_post.featured_image }}" alt="{{ featured_post.title }}">
+      </div>
+      {% endif %}
+      <div class="featured-content">
+        <span class="post-category">{{ featured_post.category }}</span>
+        <h3><a href="{{ featured_post.url }}">{{ featured_post.title }}</a></h3>
+        <p class="post-excerpt">{{ featured_post.excerpt | strip_html | truncatewords: 50 }}</p>
+        <div class="post-meta">
+          <time>{{ featured_post.date | date: "%B %-d, %Y" }}</time>
+          <span class="author">by {{ featured_post.author | default: site.author.name }}</span>
+        </div>
+        <a href="{{ featured_post.url }}" class="btn btn-primary">Read Article →</a>
+      </div>
+    </article>
+  </div>
+</section>
+{% endif %}
+
+<!-- Recent Posts Grid -->
+<section class="recent-posts-section">
+  <div class="container">
+    <div class="section-header">
+      <h2>Recent Articles</h2>
+      <a href="/archive.html" class="view-all">View Archive →</a>
+    </div>
+    
+    <div class="posts-grid">
+      {% for post in site.posts offset:1 limit:6 %}
+      <article class="post-card">
+        {% if post.featured_image %}
+        <div class="post-image">
+          <a href="{{ post.url }}">
+            <img src="{{ post.featured_image }}" alt="{{ post.title }}">
+          </a>
+        </div>
+        {% endif %}
+        <div class="post-content">
+          <span class="post-category">{{ post.category }}</span>
+          <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
+          <p class="post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+          <div class="post-meta">
+            <time>{{ post.date | date: "%B %-d, %Y" }}</time>
+            <a href="{{ post.url }}" class="read-more">Read more →</a>
+          </div>
+        </div>
+      </article>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Daily Categories -->
+<section class="categories-section">
+  <div class="container">
+    <h2>Explore by Day</h2>
+    <p class="section-intro">Each day of the week brings a different theme to keep content fresh and diverse.</p>
+    <div class="categories-grid">
+      <div class="category-card">
+        <h3>📱 Innovation Monday</h3>
+        <p>Latest tech breakthroughs and innovative ideas</p>
+      </div>
+      <div class="category-card">
+        <h3>🎓 Tutorial Tuesday</h3>
+        <p>Step-by-step guides and how-to articles</p>
+      </div>
+      <div class="category-card">
+        <h3>💡 Wisdom Wednesday</h3>
+        <p>Insights, philosophy, and thought-provoking content</p>
+      </div>
+      <div class="category-card">
+        <h3>🤔 Thought Thursday</h3>
+        <p>Deep dives and analytical pieces</p>
+      </div>
+      <div class="category-card">
+        <h3>⭐ Feature Friday</h3>
+        <p>Spotlights on people, projects, and achievements</p>
+      </div>
+      <div class="category-card">
+        <h3>📊 Strategy Saturday</h3>
+        <p>Planning, productivity, and strategic thinking</p>
+      </div>
+      <div class="category-card">
+        <h3>📝 Summary Sunday</h3>
+        <p>Week in review and curated collections</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Newsletter CTA -->
+<section class="newsletter-section">
+  <div class="container">
+    <div class="newsletter-content">
+      <h2>Never Miss a Post</h2>
+      <p>Get the latest articles delivered to your inbox weekly.</p>
+      <a href="/newsletter" class="btn btn-primary btn-large">Subscribe to Newsletter</a>
+    </div>
+  </div>
+</section>
