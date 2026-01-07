@@ -1,0 +1,315 @@
+name: Daily Blog Post Generation
+
+on:
+  schedule:
+    # Run daily at 6 AM UTC (1 AM EST / 12 AM CST)
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+    inputs:
+      topic:
+        description: 'Custom topic for blog post (optional)'
+        required: false
+        type: string
+      force_day:
+        description: 'Override day of week (monday-sunday)'
+        required: false
+        type: string
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  generate-daily-post:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install requests openai
+
+      - name: Determine post details
+        id: post_info
+        run: |
+          # Get current date and day of week
+          DATE=$(date +%Y-%m-%d)
+          TIME=$(date +%H:%M:%S)
+          DAY=$(date +%A | tr '[:upper:]' '[:lower:]')
+          
+          # Override if manual input provided
+          if [ -n "${{ github.event.inputs.force_day }}" ]; then
+            DAY="${{ github.event.inputs.force_day }}"
+          fi
+          
+          # Set category based on day
+          case $DAY in
+            monday) CATEGORY="Innovation Monday" ;;
+            tuesday) CATEGORY="Tutorial Tuesday" ;;
+            wednesday) CATEGORY="Wisdom Wednesday" ;;
+            thursday) CATEGORY="Thought Thursday" ;;
+            friday) CATEGORY="Feature Friday" ;;
+            saturday) CATEGORY="Strategy Saturday" ;;
+            sunday) CATEGORY="Summary Sunday" ;;
+            *) CATEGORY="General" ;;
+          esac
+          
+          echo "date=$DATE" >> $GITHUB_OUTPUT
+          echo "time=$TIME" >> $GITHUB_OUTPUT
+          echo "day=$DAY" >> $GITHUB_OUTPUT
+          echo "category=$CATEGORY" >> $GITHUB_OUTPUT
+
+      - name: Research and generate blog post
+        env:
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          POST_DATE: ${{ steps.post_info.outputs.date }}
+          POST_TIME: ${{ steps.post_info.outputs.time }}
+          POST_CATEGORY: ${{ steps.post_info.outputs.category }}
+          POST_DAY: ${{ steps.post_info.outputs.day }}
+          CUSTOM_TOPIC: ${{ github.event.inputs.topic }}
+        run: |
+          python << 'EOF'
+          import os
+          import json
+          import requests
+          from datetime import datetime
+
+          # Configuration
+          date = os.environ['POST_DATE']
+          time = os.environ['POST_TIME']
+          category = os.environ['POST_CATEGORY']
+          day = os.environ['POST_DAY']
+          custom_topic = os.environ.get('CUSTOM_TOPIC', '')
+
+          # Define research queries based on category
+          research_queries = {
+              'Innovation Monday': [
+                  'latest grant funding innovations 2026',
+                  'new grant programs federal government',
+                  'innovative grant application technologies'
+              ],
+              'Tutorial Tuesday': [
+                  'grant writing tips 2026',
+                  'how to apply for grants step by step',
+                  'grant application best practices'
+              ],
+              'Wisdom Wednesday': [
+                  'grant funding insights nonprofits',
+                  'successful grant strategies',
+                  'grant writing wisdom experts'
+              ],
+              'Thought Thursday': [
+                  'grant funding trends analysis',
+                  'future of grant funding',
+                  'grant ecosystem changes 2026'
+              ],
+              'Feature Friday': [
+                  'spotlight grant success stories',
+                  'featured grant opportunities this week',
+                  'grant program highlights'
+              ],
+              'Strategy Saturday': [
+                  'grant application strategy',
+                  'grant portfolio planning',
+                  'grant funding strategy nonprofits'
+              ],
+              'Summary Sunday': [
+                  'grant news this week',
+                  'weekly grant deadlines',
+                  'grant funding roundup'
+              ]
+          }
+
+          # Get queries for today's category
+          queries = research_queries.get(category, ['grant funding news 2026'])
+
+          # Function to research using Perplexity API
+          def research_topic(query):
+              api_key = os.environ.get('PERPLEXITY_API_KEY')
+              if not api_key:
+                  return None
+              
+              headers = {
+                  'Authorization': f'Bearer {api_key}',
+                  'Content-Type': 'application/json'
+              }
+              
+              data = {
+                  'model': 'llama-3.1-sonar-small-128k-online',
+                  'messages': [
+                      {
+                          'role': 'system',
+                          'content': 'You are a grant funding expert researcher. Provide current, factual information about grants, funding opportunities, and related topics.'
+                      },
+                      {
+                          'role': 'user',
+                          'content': f'Research the following topic and provide key insights, recent developments, and important information: {query}'
+                      }
+                  ],
+                  'temperature': 0.7,
+                  'max_tokens': 2000
+              }
+              
+              try:
+                  response = requests.post(
+                      'https://api.perplexity.ai/chat/completions',
+                      headers=headers,
+                      json=data,
+                      timeout=30
+                  )
+                  response.raise_for_status()
+                  return response.json()['choices'][0]['message']['content']
+              except Exception as e:
+                  print(f'Research error: {e}')
+                  return None
+
+          # Research the topic
+          if custom_topic:
+              topic = custom_topic
+              research_query = custom_topic
+          else:
+              # Use first query for the category
+              research_query = queries[0]
+              topic = f"Current Trends in {category.replace(day.capitalize() + ' ', '')}"
+
+          print(f'Researching: {research_query}')
+          research_content = research_topic(research_query)
+
+          # Generate blog post with OpenAI if Perplexity succeeds
+          if research_content:
+              api_key = os.environ.get('OPENAI_API_KEY')
+              if api_key:
+                  headers = {
+                      'Authorization': f'Bearer {api_key}',
+                      'Content-Type': 'application/json'
+                  }
+                  
+                  prompt = f"""Based on this research about {topic}:
+
+          {research_content}
+
+          Write a comprehensive, engaging blog post for a grant funding blog. The post should:
+          - Have an attention-grabbing introduction
+          - Include 3-4 main sections with subheadings
+          - Provide actionable insights and tips
+          - Include specific examples where possible
+          - End with key takeaways
+          - Be written in a professional but conversational tone
+          - Be 800-1200 words
+          - Use markdown formatting
+
+          Category: {category}
+          Target audience: Nonprofits, artists, solopreneurs seeking grants
+          """
+                  
+                  data = {
+                      'model': 'gpt-4-turbo-preview',
+                      'messages': [
+                          {'role': 'system', 'content': 'You are an expert grant funding writer.'},
+                          {'role': 'user', 'content': prompt}
+                      ],
+                      'temperature': 0.8,
+                      'max_tokens': 3000
+                  }
+                  
+                  try:
+                      response = requests.post(
+                          'https://api.openai.com/v1/chat/completions',
+                          headers=headers,
+                          json=data,
+                          timeout=60
+                      )
+                      response.raise_for_status()
+                      blog_content = response.json()['choices'][0]['message']['content']
+                  except Exception as e:
+                      print(f'Generation error: {e}')
+                      blog_content = research_content
+              else:
+                  blog_content = research_content
+          else:
+              # Fallback content if research fails
+              blog_content = f"""## Introduction
+
+          Welcome to today's {category} post!
+
+          ## Main Content
+
+          [Content generation pending - API keys not configured]
+
+          ## Key Takeaways
+
+          - Stay tuned for more insights
+          - Check back soon for updates
+
+          ## Conclusion
+
+          More content coming soon!
+          """
+
+          # Create filename-safe version of topic
+          safe_topic = ''.join(c if c.isalnum() or c in ' -' else '' for c in topic)
+          safe_topic = safe_topic.strip().replace(' ', '-').lower()[:50]
+          filename = f'_posts/{date}-{safe_topic}.md'
+
+          # Create post content
+          post_content = f"""---
+          layout: post
+          title: "{topic}"
+          date: {date} {time} -0600
+          category: {category}
+          author: Grant Genie Team
+          featured_image: /assets/images/posts/{date}-featured.jpg
+          tags: [{category.lower()}, grants, funding, research]
+          excerpt: "Explore the latest insights on {topic} in today's {category} post."
+          ---
+
+          {blog_content}
+
+          ---
+
+          *What are your thoughts on this topic? Share your insights in the comments below!*
+
+          *This post was researched and curated by the Grant Genie AI system, bringing you the latest information in grant funding.*
+          """
+
+          # Write the file
+          os.makedirs('_posts', exist_ok=True)
+          with open(filename, 'w', encoding='utf-8') as f:
+              f.write(post_content)
+
+          print(f'Created post: {filename}')
+          print(f'Topic: {topic}')
+          EOF
+
+      - name: Commit and push
+        run: |
+          git config user.name "G3-Bot"
+          git config user.email "bot@granthustle.org"
+          git add _posts/
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "🤖 Auto-generate daily blog post for ${{ steps.post_info.outputs.date }} (${{ steps.post_info.outputs.category }})"
+            git push
+          fi
+
+      - name: Create issue if generation failed
+        if: failure()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Blog post generation failed for ${new Date().toISOString().split('T')[0]}`,
+              body: 'The automated blog post generation workflow failed. Please check the logs and generate content manually.',
+              labels: ['automation', 'blog-generation']
+            })
