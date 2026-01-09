@@ -1,0 +1,156 @@
+/* SEO & Performance Enhancements */
+
+@media print {
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: #000;
+    background: #fff;
+  }
+  
+  .main-nav,
+  .main-footer,
+  .social-share,
+  .newsletter-inline,
+  .back-to-top,
+  .reading-progress,
+  .search-modal {
+    display: none !important;
+  }
+  
+  .post-content {
+    max-width: 100%;
+  }
+  
+  .post-content a {
+    text-decoration: underline;
+    color: #000;
+  }
+  
+  .post-content a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8em;
+  }
+  
+  img {
+    max-width: 100% !important;
+    page-break-inside: avoid;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+  
+  pre, blockquote {
+    page-break-inside: avoid;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+}
+
+:focus {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+:focus:not(:focus-visible) {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 3px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 0;
+  background: var(--primary-color);
+  color: white;
+  padding: 1rem 2rem;
+  text-decoration: none;
+  font-weight: 600;
+  z-index: 10000;
+  transition: top 0.3s ease;
+}
+
+.skip-to-content:focus {
+  top: 0;
+}
+
+a {
+  text-decoration-skip-ink: auto;
+}
+
+@media (prefers-contrast: high) {
+  :root {
+    --text-dark: #000;
+    --text-light: #fff;
+    --border-color: #000;
+  }
+  
+  .btn,
+  .nav-link,
+  .blog-card {
+    border: 2px solid currentColor;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.sr-only-focusable:active,
+.sr-only-focusable:focus {
+  position: static;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  clip: auto;
+  white-space: normal;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+img[loading="lazy"] {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+img[loading="lazy"].loaded {
+  opacity: 1;
+}
+
+.blog-card,
+.news-card,
+.archive-post-card {
+  contain: layout;
+}
+
+.hero-section,
+.main-nav {
+  contain: layout style;
+}

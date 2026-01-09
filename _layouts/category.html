@@ -1,0 +1,62 @@
+---
+layout: default
+---
+
+<div class="archive-header">
+  <div class="container">
+    <h1 class="archive-title">{{ page.category }}</h1>
+    <p class="archive-description">
+      {{ page.description | default: "Articles about " | append: page.category }}
+    </p>
+    {% assign category_posts = site.posts | where: "category", page.category %}
+    <p class="archive-count">
+      {{ category_posts.size }} articles in this category
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  
+  <nav class="breadcrumb">
+    <div class="breadcrumb-item"><a href="/">Home</a></div>
+    <span class="breadcrumb-separator">/</span>
+    <div class="breadcrumb-item"><a href="/archive">Archive</a></div>
+    <span class="breadcrumb-separator">/</span>
+    <div class="breadcrumb-item active">{{ page.category }}</div>
+  </nav>
+  
+  <div class="archive-posts">
+    {% for post in category_posts %}
+    <article class="archive-post-card">
+      <a href="{{ post.url }}">
+        {% if post.featured_image %}
+        <img src="{{ post.featured_image }}" alt="{{ post.title }}" class="archive-post-image">
+        {% else %}
+        <div class="archive-post-image"></div>
+        {% endif %}
+        
+        <div class="archive-post-content">
+          <h3 class="archive-post-title">{{ post.title }}</h3>
+          <p class="archive-post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+          
+          <div class="archive-post-meta">
+            <span>{{ post.date | date: "%b %-d, %Y" }}</span>
+            {% if post.author %}
+            <span>• {{ post.author }}</span>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+  
+  {% if category_posts.size == 0 %}
+  <div class="archive-empty">
+    <div class="archive-empty-icon">📭</div>
+    <h2 class="archive-empty-title">No posts yet</h2>
+    <p class="archive-empty-text">Check back soon for new content!</p>
+  </div>
+  {% endif %}
+  
+</div>

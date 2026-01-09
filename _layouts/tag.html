@@ -1,0 +1,66 @@
+---
+layout: default
+---
+
+<div class="archive-header">
+  <div class="container">
+    <h1 class="archive-title">#{{ page.tag }}</h1>
+    <p class="archive-description">
+      Articles tagged with {{ page.tag }}
+    </p>
+    {% assign tag_posts = site.posts | where_exp: "post", "post.tags contains page.tag" %}
+    <p class="archive-count">
+      {{ tag_posts.size }} articles with this tag
+    </p>
+  </div>
+</div>
+
+<div class="container">
+  
+  <nav class="breadcrumb">
+    <div class="breadcrumb-item"><a href="/">Home</a></div>
+    <span class="breadcrumb-separator">/</span>
+    <div class="breadcrumb-item"><a href="/archive">Archive</a></div>
+    <span class="breadcrumb-separator">/</span>
+    <div class="breadcrumb-item active">#{{ page.tag }}</div>
+  </nav>
+  
+  <div class="archive-posts">
+    {% for post in tag_posts %}
+    <article class="archive-post-card">
+      <a href="{{ post.url }}">
+        {% if post.featured_image %}
+        <img src="{{ post.featured_image }}" alt="{{ post.title }}" class="archive-post-image">
+        {% else %}
+        <div class="archive-post-image"></div>
+        {% endif %}
+        
+        <div class="archive-post-content">
+          {% if post.category %}
+          <span class="archive-post-category">{{ post.category }}</span>
+          {% endif %}
+          
+          <h3 class="archive-post-title">{{ post.title }}</h3>
+          <p class="archive-post-excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
+          
+          <div class="archive-post-meta">
+            <span>{{ post.date | date: "%b %-d, %Y" }}</span>
+            {% if post.author %}
+            <span>• {{ post.author }}</span>
+            {% endif %}
+          </div>
+        </div>
+      </a>
+    </article>
+    {% endfor %}
+  </div>
+  
+  {% if tag_posts.size == 0 %}
+  <div class="archive-empty">
+    <div class="archive-empty-icon">🏷️</div>
+    <h2 class="archive-empty-title">No posts with this tag</h2>
+    <p class="archive-empty-text">Check out our <a href="/archive">archive</a> for all posts.</p>
+  </div>
+  {% endif %}
+  
+</div>
