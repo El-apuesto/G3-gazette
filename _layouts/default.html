@@ -9,11 +9,18 @@
   <!-- SEO -->
   {% seo %}
   
+  <!-- Preconnect to external resources -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  
   <!-- Styles -->
   <link rel="stylesheet" href="{{ '/assets/css/typography.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/animations.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/blog-enhancements.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/search-and-nav.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/newsletter.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/archive.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/seo.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/landing.css' | relative_url }}">
@@ -21,10 +28,31 @@
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
   
+  <!-- RSS Feed -->
+  <link rel="alternate" type="application/rss+xml" title="{{ site.title }}" href="{{ '/feed.xml' | relative_url }}">
+  
+  <!-- Open Graph / Social Media -->
+  <meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+  <meta property="og:title" content="{{ page.title | default: site.title }}">
+  <meta property="og:description" content="{{ page.excerpt | default: site.description | strip_html | truncate: 160 }}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  {% if page.featured_image %}
+  <meta property="og:image" content="{{ page.featured_image | absolute_url }}">
+  {% else %}
+  <meta property="og:image" content="{{ '/assets/images/og-image.png' | absolute_url }}">
+  {% endif %}
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:site" content="@granthustle">
+  
   <!-- Dark Mode Toggle Script (load early to prevent flash) -->
   <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
 </head>
 <body>
+  
+  <!-- Skip to Content (Accessibility) -->
+  <a href="#main-content" class="skip-to-content">Skip to main content</a>
   
   <!-- Navigation -->
   <nav class="main-nav">
@@ -69,7 +97,7 @@
   </nav>
   
   <!-- Main Content -->
-  <main class="main-content">
+  <main class="main-content" id="main-content">
     {{ content }}
   </main>
   
@@ -81,9 +109,9 @@
           <h3>Grant Hustle</h3>
           <p>Democratizing access to grants and funding opportunities.</p>
           <div class="social-links">
-            <a href="#" aria-label="Twitter">𝕏</a>
-            <a href="#" aria-label="LinkedIn">in</a>
-            <a href="#" aria-label="Facebook">f</a>
+            <a href="https://twitter.com/granthustle" aria-label="Twitter" rel="noopener">𝕏</a>
+            <a href="https://linkedin.com/company/granthustle" aria-label="LinkedIn" rel="noopener">in</a>
+            <a href="https://facebook.com/granthustle" aria-label="Facebook" rel="noopener">f</a>
           </div>
         </div>
         
@@ -91,6 +119,7 @@
           <h4>Product</h4>
           <a href="https://app.granthustle.org">Grant Geenie App</a>
           <a href="https://blog.granthustle.org">G³ Blog</a>
+          <a href="/archive">Blog Archive</a>
           <a href="/pricing">Pricing</a>
           <a href="/features">Features</a>
         </div>
@@ -117,6 +146,7 @@
           <a href="/referral">Referral Program</a>
           <a href="/affiliate">Affiliate Program</a>
           <a href="/newsletter">Newsletter</a>
+          <a href="/feed.xml" rel="alternate" type="application/rss+xml">RSS Feed</a>
         </div>
       </div>
       
@@ -131,5 +161,10 @@
   <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/blog-enhancements.js' | relative_url }}"></script>
   <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/newsletter.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/performance.js' | relative_url }}"></script>
+  
+  <!-- Analytics (add your tracking code here) -->
+  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> -->
 </body>
 </html>

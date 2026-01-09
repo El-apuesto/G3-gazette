@@ -1,21 +1,32 @@
 title: "G³ - Grant Genie Gazette"
-description: "Your daily dose of insights, research, and discovery"
+description: "Your daily dose of grant funding insights, research, and discovery. Explore opportunities, success stories, and expert tips."
 author:
   name: "Grant Genie Team"
   email: "contact@grantgenie.com"
+  twitter: "@granthustle"
 baseurl: ""
 url: "https://blog.granthustle.org"
+logo: "/assets/images/logo.png"
 
 # Build settings
 theme: minima
 markdown: kramdown
 permalink: /:categories/:year/:month/:day/:title/
 
+# Kramdown settings for better code highlighting
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    block:
+      line_numbers: false
+
 # Plugins
 plugins:
   - jekyll-feed
   - jekyll-seo-tag
   - jekyll-sitemap
+  - jekyll-paginate
 
 # Collections
 collections:
@@ -24,8 +35,25 @@ collections:
     permalink: /posts/:year/:month/:day/:title/
 
 # Pagination
-paginate: 7
+paginate: 12
 paginate_path: "/page/:num/"
+
+# RSS Feed Settings
+feed:
+  posts_limit: 20
+  excerpt_only: false
+
+# SEO Settings
+twitter:
+  username: "@granthustle"
+  card: summary_large_image
+
+social:
+  name: "Grant Hustle"
+  links:
+    - https://twitter.com/granthustle
+    - https://www.facebook.com/granthustle
+    - https://www.linkedin.com/company/granthustle
 
 # Comments (using giscus - GitHub Discussions based)
 comments:
@@ -52,6 +80,23 @@ daily_categories:
   saturday: "Strategy Saturday"
   sunday: "Summary Sunday"
 
+# Default front matter
+defaults:
+  - scope:
+      path: ""
+      type: "posts"
+    values:
+      layout: "post"
+      author: "Grant Genie Team"
+      comments: true
+      share: true
+      show_date: true
+  - scope:
+      path: ""
+      type: "pages"
+    values:
+      layout: "default"
+
 # Exclude from processing
 exclude:
   - Gemfile
@@ -60,3 +105,6 @@ exclude:
   - vendor
   - .github
   - scripts
+  - README.md
+  - LICENSE
+  - ENHANCEMENTS_SUMMARY.md
