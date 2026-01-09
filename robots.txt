@@ -1,0 +1,29 @@
+# Grant Hustle G3 Gazette Robots.txt
+
+User-agent: *
+Allow: /
+
+# Disallow admin and private directories
+Disallow: /admin/
+Disallow: /private/
+Disallow: /_drafts/
+
+# Sitemaps
+Sitemap: {{ site.url }}/sitemap.xml
+Sitemap: {{ site.url }}/feed.xml
+
+# Crawl-delay (optional)
+Crawl-delay: 1
+
+# Block bad bots
+User-agent: SemrushBot
+Crawl-delay: 5
+
+User-agent: AhrefsBot
+Crawl-delay: 5
+
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: SeznamBot
+Crawl-delay: 5
