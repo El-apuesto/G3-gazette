@@ -2,55 +2,181 @@
 layout: default
 ---
 
-<article class="post" itemscope itemtype="http://schema.org/BlogPosting">
-  <header class="post-header">
-    <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
-    <p class="post-meta">
-      <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
-        {{ page.date | date: "%B %-d, %Y" }}
-      </time>
-      {% if page.author %}
-        <span itemprop="author" itemscope itemtype="http://schema.org/Person">
-          <span itemprop="name">• By {{ page.author }}</span>
-        </span>
-      {% endif %}
-      {% if page.category %}
-        • <span class="post-category">{{ page.category }}</span>
-      {% endif %}
-    </p>
-  </header>
-
-  {% if page.featured_image %}
-    <div class="post-featured-image">
-      <img src="{{ page.featured_image }}" alt="{{ page.title }}" itemprop="image">
-    </div>
-  {% endif %}
-
-  <div class="post-content" itemprop="articleBody">
-    {{ content }}
-  </div>
-
-  <footer class="post-footer">
-    <div class="share-buttons">
-      <h3>Share this article:</h3>
+<div class="post-layout">
+  <!-- Left Sidebar (Social Share) -->
+  <div class="post-sidebar-left">
+    <div class="social-share">
+      <div class="social-share-title">Share</div>
       <a href="https://twitter.com/intent/tweet?text={{ page.title | uri_escape }}&url={{ page.url | absolute_url | uri_escape }}" 
-         target="_blank" rel="noopener" class="share-btn twitter">
-        Share on Twitter
-      </a>
-      <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | uri_escape }}" 
-         target="_blank" rel="noopener" class="share-btn facebook">
-        Share on Facebook
+         target="_blank" rel="noopener" class="share-button twitter" aria-label="Share on Twitter">
+        𝕏
       </a>
       <a href="https://www.linkedin.com/sharing/share-offsite/?url={{ page.url | absolute_url | uri_escape }}" 
-         target="_blank" rel="noopener" class="share-btn linkedin">
-        Share on LinkedIn
+         target="_blank" rel="noopener" class="share-button linkedin" aria-label="Share on LinkedIn">
+        in
       </a>
-      <button onclick="navigator.clipboard.writeText('{{ page.url | absolute_url }}');alert('Link copied!')" 
-              class="share-btn copy-link">
-        Copy Link
+      <a href="https://www.facebook.com/sharer/sharer.php?u={{ page.url | absolute_url | uri_escape }}" 
+         target="_blank" rel="noopener" class="share-button facebook" aria-label="Share on Facebook">
+        f
+      </a>
+      <a href="mailto:?subject={{ page.title | uri_escape }}&body={{ page.url | absolute_url | uri_escape }}" 
+         class="share-button email" aria-label="Share via email">
+        ✉
+      </a>
+      <button class="share-button copy" aria-label="Copy link">
+        🔗
       </button>
     </div>
+  </div>
+  
+  <!-- Main Content -->
+  <article class="post-main" itemscope itemtype="http://schema.org/BlogPosting">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb" aria-label="Breadcrumb">
+      <div class="breadcrumb-item">
+        <a href="/">Home</a>
+      </div>
+      <span class="breadcrumb-separator">/</span>
+      <div class="breadcrumb-item">
+        <a href="/archive">Blog</a>
+      </div>
+      {% if page.category %}
+      <span class="breadcrumb-separator">/</span>
+      <div class="breadcrumb-item">
+        <a href="/category/{{ page.category | slugify }}">{{ page.category }}</a>
+      </div>
+      {% endif %}
+      <span class="breadcrumb-separator">/</span>
+      <div class="breadcrumb-item active">{{ page.title | truncate: 30 }}</div>
+    </nav>
+    
+    <!-- Post Header -->
+    <header class="post-header">
+      <h1 class="post-title" itemprop="name headline">{{ page.title }}</h1>
+      
+      <div class="post-meta">
+        <div class="meta-item post-date">
+          <time datetime="{{ page.date | date_to_xmlschema }}" itemprop="datePublished">
+            {{ page.date | date: "%B %-d, %Y" }}
+          </time>
+        </div>
+        
+        {% if page.author %}
+        <div class="meta-item">
+          <span itemprop="author" itemscope itemtype="http://schema.org/Person">
+            👤 <span itemprop="name">{{ page.author }}</span>
+          </span>
+        </div>
+        {% endif %}
+        
+        {% if page.category %}
+        <div class="meta-item">
+          <a href="/category/{{ page.category | slugify }}" class="post-category">{{ page.category }}</a>
+        </div>
+        {% endif %}
+        
+        <!-- Reading time will be auto-calculated by JS -->
+        <div class="meta-item reading-time"></div>
+      </div>
+    </header>
 
+    {% if page.featured_image %}
+    <div class="post-featured-image">
+      <img src="{{ page.featured_image }}" alt="{{ page.title }}" itemprop="image" class="loaded">
+    </div>
+    {% endif %}
+
+    <div class="post-content" itemprop="articleBody">
+      {{ content }}
+    </div>
+    
+    <!-- Tags -->
+    {% if page.tags %}
+    <div class="post-tags">
+      {% for tag in page.tags %}
+        <a href="/tag/{{ tag | slugify }}" class="post-tag">#{{ tag }}</a>
+      {% endfor %}
+    </div>
+    {% endif %}
+    
+    <!-- Author Bio -->
+    <div class="author-bio">
+      <div class="author-header">
+        <img src="{{ page.author_avatar | default: '/assets/images/default-avatar.png' }}" 
+             alt="{{ page.author | default: 'Grant Genie Team' }}" 
+             class="author-avatar">
+        <div class="author-info">
+          <h4>{{ page.author | default: "Grant Genie Team" }}</h4>
+          <p class="author-title">{{ page.author_title | default: "Grant Funding Expert" }}</p>
+        </div>
+      </div>
+      <p class="author-bio-text">
+        {{ page.author_bio | default: "The Grant Genie Team is dedicated to helping organizations and individuals discover and secure grant funding opportunities. With years of experience in grant writing and funding research, we bring you the latest insights and strategies for successful grant applications." }}
+      </p>
+      <div class="author-social">
+        <a href="#" class="author-social-link" aria-label="Twitter">𝕏</a>
+        <a href="#" class="author-social-link" aria-label="LinkedIn">in</a>
+        <a href="#" class="author-social-link" aria-label="Website">🌐</a>
+      </div>
+    </div>
+    
+    <!-- Related Posts -->
+    <div class="related-posts">
+      <h2 class="related-posts-title">Related Articles</h2>
+      <div class="related-posts-grid">
+        {% assign maxRelated = 3 %}
+        {% assign minCommonTags = 2 %}
+        {% assign maxRelatedCounter = 0 %}
+        
+        {% for post in site.posts %}
+          {% if post.url != page.url %}
+            {% assign sameTagCount = 0 %}
+            {% for tag in post.tags %}
+              {% if page.tags contains tag %}
+                {% assign sameTagCount = sameTagCount | plus: 1 %}
+              {% endif %}
+            {% endfor %}
+            
+            {% if sameTagCount >= minCommonTags or post.category == page.category %}
+              {% if maxRelatedCounter < maxRelated %}
+                {% assign maxRelatedCounter = maxRelatedCounter | plus: 1 %}
+                <a href="{{ post.url }}" class="related-post-card">
+                  {% if post.featured_image %}
+                    <img src="{{ post.featured_image }}" alt="{{ post.title }}" class="related-post-image">
+                  {% else %}
+                    <div class="related-post-image"></div>
+                  {% endif %}
+                  <div class="related-post-content">
+                    <h3 class="related-post-title">{{ post.title }}</h3>
+                    <p class="related-post-excerpt">{{ post.excerpt | strip_html | truncatewords: 15 }}</p>
+                  </div>
+                </a>
+              {% endif %}
+            {% endif %}
+          {% endif %}
+        {% endfor %}
+        
+        <!-- Fallback: Show recent posts if no related found -->
+        {% if maxRelatedCounter == 0 %}
+          {% for post in site.posts limit:3 %}
+            {% if post.url != page.url %}
+              <a href="{{ post.url }}" class="related-post-card">
+                {% if post.featured_image %}
+                  <img src="{{ post.featured_image }}" alt="{{ post.title }}" class="related-post-image">
+                {% else %}
+                  <div class="related-post-image"></div>
+                {% endif %}
+                <div class="related-post-content">
+                  <h3 class="related-post-title">{{ post.title }}</h3>
+                  <p class="related-post-excerpt">{{ post.excerpt | strip_html | truncatewords: 15 }}</p>
+                </div>
+              </a>
+            {% endif %}
+          {% endfor %}
+        {% endif %}
+      </div>
+    </div>
+    
     {% if site.comments.enabled %}
     <div class="comments-section">
       <h3>Comments</h3>
@@ -78,5 +204,13 @@ layout: default
       </script>
     </div>
     {% endif %}
-  </footer>
-</article>
+  </article>
+  
+  <!-- Right Sidebar (Table of Contents) -->
+  <div class="post-sidebar-right">
+    <div class="table-of-contents">
+      <h3 class="toc-title">Table of Contents</h3>
+      <!-- TOC will be auto-generated by JavaScript -->
+    </div>
+  </div>
+</div>
