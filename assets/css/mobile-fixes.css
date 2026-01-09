@@ -1,0 +1,391 @@
+/* Mobile Spacing Fixes */
+
+/* Ensure all content has proper padding on mobile */
+@media (max-width: 768px) {
+    /* Main container padding */
+    .container {
+        padding: 0 1.25rem;
+    }
+    
+    /* Post content padding */
+    .post-content {
+        padding: 0 1.25rem;
+    }
+    
+    /* Hero section padding */
+    .hero-section {
+        padding: 3rem 1.25rem;
+    }
+    
+    .hero-content {
+        padding: 0 1rem;
+    }
+    
+    /* Mission section */
+    .mission-section {
+        padding: 3rem 1.25rem;
+    }
+    
+    /* Grant news section */
+    .grant-news-section {
+        padding: 3rem 1.25rem;
+    }
+    
+    /* Deadlines section */
+    .deadlines-section {
+        padding: 3rem 1.25rem;
+    }
+    
+    /* Blog preview section */
+    .blog-preview-section {
+        padding: 3rem 1.25rem;
+    }
+    
+    /* Features section */
+    .features-section {
+        padding: 3rem 1.25rem;
+    }
+    
+    /* Newsletter section */
+    .newsletter-section {
+        padding: 3rem 1.25rem;
+    }
+    
+    .newsletter-content {
+        padding: 0 1rem;
+    }
+    
+    /* CTA section */
+    .cta-section {
+        padding: 2.5rem 1.25rem;
+    }
+    
+    /* Archive page */
+    .archive-page {
+        padding: 2rem 1.25rem;
+    }
+    
+    .page-header {
+        padding: 2rem 1rem;
+    }
+    
+    /* Newsletter page */
+    .newsletter-page {
+        padding: 2rem 1.25rem;
+    }
+    
+    /* Post layout */
+    .post-layout {
+        padding: 2rem 1.25rem;
+    }
+    
+    .post-header {
+        padding: 1.5rem 1rem;
+    }
+    
+    /* Post title should not touch edges */
+    .post-title {
+        padding: 0 0.5rem;
+    }
+    
+    /* Cards need internal padding */
+    .news-card,
+    .blog-card,
+    .feature-card,
+    .deadline-item {
+        margin: 0 0.25rem 1rem;
+    }
+    
+    /* Blog content in cards */
+    .blog-content {
+        padding: 1.25rem;
+    }
+    
+    /* News card content */
+    .news-card {
+        padding: 1.5rem 1.25rem;
+    }
+    
+    /* Deadline item */
+    .deadline-item {
+        padding: 1.25rem;
+    }
+    
+    /* Newsletter form */
+    .newsletter-form input,
+    .newsletter-form button {
+        margin: 0 0.5rem;
+    }
+    
+    /* Search modal on mobile */
+    .search-modal-content {
+        margin: 5vh 1.25rem 0;
+    }
+    
+    /* Category filters */
+    .category-filters {
+        padding: 1.25rem;
+        margin: 1.5rem 0;
+    }
+    
+    /* Archive search */
+    .archive-search {
+        padding: 0 1rem;
+        margin: 1.5rem 0;
+    }
+    
+    /* Signup card */
+    .signup-card {
+        margin: 0 1rem;
+    }
+    
+    /* Benefits grid */
+    .benefits-grid {
+        padding: 0 0.5rem;
+    }
+    
+    .benefit-card {
+        margin: 0 0.5rem 1.5rem;
+    }
+    
+    /* Testimonials */
+    .testimonials-grid {
+        padding: 0 0.5rem;
+    }
+    
+    .testimonial-card {
+        margin: 0 0.5rem 1.5rem;
+    }
+    
+    /* FAQ container */
+    .faq-container {
+        padding: 0 1rem;
+    }
+    
+    .faq-item {
+        margin: 0 0.25rem 1.5rem;
+    }
+    
+    /* Blog grid spacing */
+    .blog-grid,
+    .news-grid,
+    .features-grid,
+    .archive-grid {
+        padding: 0 0.5rem;
+        gap: 1.5rem;
+    }
+    
+    /* Footer padding */
+    .main-footer {
+        padding: 2.5rem 1.25rem 1.5rem;
+    }
+    
+    .footer-grid {
+        padding: 0 0.5rem;
+        gap: 2rem 1rem;
+    }
+    
+    /* Related posts */
+    .related-posts {
+        padding: 0 1rem;
+    }
+    
+    .related-posts-grid {
+        padding: 0 0.5rem;
+        gap: 1.5rem;
+    }
+    
+    /* Author bio */
+    .author-bio {
+        margin: 3rem 1rem 0;
+        padding: 1.5rem 1.25rem;
+    }
+    
+    /* Post meta */
+    .post-meta {
+        padding: 1rem 0.5rem;
+    }
+    
+    /* Post tags */
+    .post-tags {
+        padding: 0 0.5rem;
+        margin: 1.5rem 0.5rem;
+    }
+    
+    /* Section headers */
+    .section-header {
+        padding: 0 1rem;
+        margin-bottom: 2rem;
+    }
+    
+    /* Section headers h2 */
+    .section-header h2,
+    h1, h2, h3 {
+        padding: 0 0.5rem;
+    }
+    
+    /* Paragraphs in main content */
+    p {
+        padding: 0 0.25rem;
+    }
+    
+    /* Lists need padding */
+    ul, ol {
+        padding-left: 2rem;
+        padding-right: 0.5rem;
+    }
+    
+    /* Blockquotes */
+    blockquote {
+        margin: 1.5rem 1rem;
+        padding: 1.25rem;
+    }
+    
+    .pull-quote {
+        margin: 2rem 1rem;
+        padding: 1.5rem 1.25rem 1.5rem 2rem;
+    }
+    
+    /* Images in content */
+    .post-featured-image {
+        margin: 0 0 2rem 0;
+        border-radius: 0;
+    }
+    
+    .post-content img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 0.5rem;
+        margin: 1.5rem 0;
+    }
+    
+    /* Code blocks */
+    pre {
+        margin: 1.5rem 0.5rem;
+        padding: 1rem;
+        overflow-x: auto;
+    }
+    
+    /* Tables */
+    table {
+        margin: 1.5rem 0.5rem;
+        width: calc(100% - 1rem);
+        overflow-x: auto;
+        display: block;
+    }
+    
+    /* Buttons should have spacing */
+    .btn {
+        margin: 0.5rem;
+    }
+    
+    .cta-buttons {
+        padding: 0 1rem;
+    }
+    
+    /* Navigation should not touch edges */
+    .main-nav {
+        padding: 0 1rem;
+    }
+    
+    .nav-container {
+        padding: 0.75rem 0;
+    }
+    
+    /* Dropdown menu */
+    .dropdown-content {
+        left: 1rem;
+        right: 1rem;
+        min-width: auto;
+    }
+    
+    /* Back to top button spacing */
+    .back-to-top {
+        bottom: 20px;
+        right: 20px;
+    }
+    
+    /* Social share on mobile */
+    .social-share {
+        margin: 1rem;
+        padding: 1rem;
+    }
+    
+    /* Breadcrumb */
+    .breadcrumb {
+        padding: 1rem;
+        margin: 0 0.5rem;
+    }
+    
+    /* Reading stats */
+    .reading-stats {
+        margin: 1rem 0.5rem;
+        padding: 1rem 0.5rem;
+    }
+}
+
+/* Extra small devices (< 375px) */
+@media (max-width: 374px) {
+    .container {
+        padding: 0 1rem;
+    }
+    
+    .hero-section,
+    .mission-section,
+    .grant-news-section,
+    .deadlines-section,
+    .blog-preview-section,
+    .features-section,
+    .newsletter-section,
+    .cta-section {
+        padding: 2.5rem 1rem;
+    }
+    
+    .post-header {
+        padding: 1.25rem 0.75rem;
+    }
+    
+    .post-title {
+        font-size: 1.75rem;
+        line-height: 1.3;
+    }
+}
+
+/* Ensure body text never touches screen edge */
+body {
+    overflow-x: hidden;
+}
+
+/* Main content wrapper */
+.main-content {
+    width: 100%;
+    overflow-x: hidden;
+}
+
+@media (max-width: 768px) {
+    /* Reset any negative margins */
+    * {
+        margin-left: clamp(0px, auto, auto);
+        margin-right: clamp(0px, auto, auto);
+    }
+    
+    /* Ensure full-width backgrounds don't cause issues */
+    .hero-section,
+    .cta-section,
+    .grant-news-section,
+    .blog-preview-section,
+    .newsletter-section,
+    .features-section {
+        width: 100%;
+        overflow-x: hidden;
+    }
+    
+    /* Grid items should respect mobile padding */
+    .news-grid > *,
+    .blog-grid > *,
+    .features-grid > *,
+    .archive-grid > * {
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
