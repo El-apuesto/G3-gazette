@@ -1,118 +1,351 @@
-# G³ - Grant Genie Gazette
+# G³ Gazette - Grant Genie Blog
 
-Automated blog with AI-powered content generation, comment moderation, and weekly article features.
+![G3 Gazette Banner](https://img.shields.io/badge/Grant-Genie-22c55e?style=for-the-badge)
+![Jekyll](https://img.shields.io/badge/Jekyll-4.3-CC0000?style=for-the-badge&logo=jekyll)
+![Status](https://img.shields.io/badge/Status-Production-success?style=for-the-badge)
 
-## Features
+The official blog for Grant Genie (Grant Geenie Gazette), featuring daily automated content about grants, funding opportunities, and nonprofit resources.
 
-### ✅ Implemented
-- **Jekyll-based static site** hosted on GitHub Pages
-- **Automated deployment** via GitHub Actions
-- **Comment system** using GitHub Discussions (giscus)
-- **Comment moderation** with automated filtering
-- **Daily categories** (7-day themed structure)
-- **Weekly article highlighting** on homepage
-- **Archive system** for older posts
-- **Social sharing** buttons (Twitter, Facebook, LinkedIn, Copy Link)
-- **SEO optimization** with meta tags and sitemaps
-- **Responsive design** for mobile and desktop
-- **Author placeholders** ready for customization
+## 🎉 Recent Major Update - January 2026
 
-### 🚧 To Be Enhanced with Perplexity
-- **Automated content generation** from research
-- **AI image generation** for article headers
-- **Topic sourcing** for daily articles
-- **Advanced analytics** and monitoring
+Complete aesthetic overhaul with modern design, advanced features, and enhanced user experience.
 
-## Setup Instructions
+## ✨ Key Features
 
-### 1. Enable GitHub Pages
-1. Go to repository Settings
-2. Navigate to Pages section
-3. Set Source to "GitHub Actions"
+### Typography & Readability
+- **Google Fonts**: Poppins (headings) + Inter (body text)
+- **Drop Caps**: Elegant first-letter styling
+- **Pull Quotes**: Styled blockquotes with emerald accents
+- **Perfect Spacing**: Line heights and margins optimized for reading
 
-### 2. Enable Discussions (for Comments)
-1. Go to repository Settings
-2. Scroll to Features section
-3. Check "Discussions"
-4. Create a category called "Comments"
+### Visual Enhancements
+- **Smooth Animations**: Fade-in on scroll, staggered card reveals
+- **Glassmorphism**: Frosted glass effects on key UI elements
+- **Gradient Text**: Eye-catching gradients on hero sections
+- **Card Hover Effects**: Lift animations with emerald glow
+- **Loading Skeletons**: Shimmer effects while content loads
 
-### 3. Configure Giscus
-1. Visit [giscus.app](https://giscus.app)
-2. Enter your repository: `El-apuesto/G3-gazette`
-3. Copy the generated configuration
-4. Update `_config.yml` with your repo_id and category_id
+### Blog Post Features
+- **Reading Progress Bar**: Track position in article
+- **Auto Reading Time**: Calculated from word count
+- **Social Share Buttons**: Sticky sidebar with all major platforms
+- **Table of Contents**: Auto-generated, with active section highlighting
+- **Back to Top Button**: Smooth scroll to top
+- **Author Bio Cards**: Professional author information
+- **Related Posts**: Smart algorithm matches by tags/category
+- **Breadcrumb Navigation**: SEO-friendly path display
 
-### 4. Customize Content
-- Edit `_config.yml` to update site details
-- Replace author information
-- Modify daily category names if desired
-- Update color scheme in `assets/css/custom.css`
+### Search & Navigation
+- **Modal Search**: Full-featured search with Ctrl+K shortcut
+- **Real-time Filtering**: Instant results as you type
+- **Highlighted Matches**: Visual emphasis on search terms
+- **Smart Ranking**: Weighs titles > categories > content
+- **Mobile Menu**: Smooth hamburger animation
+- **Category Filters**: Visual pills for content filtering
 
-## Automated Workflows
+### Dark Mode
+- **Complete Theme**: Full dark mode support
+- **Toggle Button**: Fixed top-right corner
+- **LocalStorage**: Remembers user preference
+- **System Detection**: Respects OS theme
+- **Smooth Transitions**: All colors fade smoothly
 
-### Daily Deployment
-- Runs at 9 AM UTC daily
-- Checks for scheduled posts
-- Rebuilds and deploys site
+## 📁 Project Structure
 
-### Weekly Post Generation
-- Runs every Monday at 6 AM UTC
-- Creates post template for the week
-- Can be triggered manually with custom topics
+```
+G3-gazette/
+├── _layouts/
+│   ├── default.html          # Main layout with all CSS/JS
+│   └── post.html             # Enhanced post layout
+├── _posts/                   # Blog posts (Markdown)
+├── assets/
+│   ├── css/
+│   │   ├── main.css             # Core styles & colors
+│   │   ├── typography.css       # Fonts & text styles
+│   │   ├── animations.css       # Visual effects
+│   │   ├── blog-enhancements.css # Post features
+│   │   ├── search-and-nav.css   # Search & navigation
+│   │   ├── landing.css          # Homepage styles
+│   │   └── custom.css           # Additional customizations
+│   ├── js/
+│   │   ├── theme-toggle.js      # Dark mode
+│   │   ├── blog-enhancements.js # Post features (progress, TOC, etc.)
+│   │   ├── search.js            # Search functionality
+│   │   └── navigation.js        # Mobile menu
+│   └── images/               # Images and media
+├── archive.html             # All posts page with filtering
+├── newsletter.html          # Newsletter signup
+├── search.json              # Jekyll search data
+├── _config.yml              # Jekyll configuration
+└── index.html               # Homepage
+```
 
-### Comment Moderation
-- Triggered on every new comment
-- Filters inappropriate content
-- Flags suspicious comments for review
-- Creates moderation issues automatically
+## 🚀 Quick Start
 
-## Creating Posts
+### Prerequisites
+- Ruby 2.7+
+- Jekyll 4.3+
+- Bundler
 
-### Manual Method
-Create a file in `_posts/` with format: `YYYY-MM-DD-title.md`
+### Local Development
 
-```markdown
+```bash
+# Clone the repository
+git clone https://github.com/El-apuesto/G3-gazette.git
+cd G3-gazette
+
+# Install dependencies
+bundle install
+
+# Run local server
+bundle exec jekyll serve
+
+# View at http://localhost:4000
+```
+
+### Creating a New Post
+
+```bash
+# Create file in _posts/
+# Format: YYYY-MM-DD-title-slug.md
+```
+
+**Post Front Matter Template**:
+
+```yaml
 ---
 layout: post
-title: "Your Post Title"
-date: 2026-01-03 09:00:00 -0600
-category: Innovation Monday
-author: Grant Genie Team
-featured_image: /assets/images/your-image.jpg
-tags: [innovation, research]
-excerpt: "A brief description"
+title: "Your Post Title Here"
+date: 2026-01-09 10:00:00 -0600
+author: "Author Name"
+author_title: "Author Role"
+author_bio: "Brief bio about the author..."
+author_avatar: "/assets/images/authors/name.jpg"
+category: "Category Name"
+tags: [tag1, tag2, tag3]
+featured_image: "/assets/images/blog/post-image.jpg"
+excerpt: "Brief description for previews and SEO..."
 ---
 
 Your content here...
 ```
 
-### Automated Method
-1. Go to Actions tab
-2. Select "Generate Weekly Blog Post"
-3. Click "Run workflow"
-4. Enter optional custom topic
-5. Select day of week
+## 🎨 Customization
 
-## Monitoring & Moderation
+### Colors
 
-- Check the Issues tab for flagged comments
-- Review comments with `moderation` and `needs-review` labels
-- Manually approve or delete flagged content in Discussions
+Edit `assets/css/main.css`:
 
-## Next Steps
+```css
+:root {
+  --primary-500: #22c55e;  /* Main brand color */
+  --primary-600: #16a34a;  /* Darker shade */
+  --primary-700: #15803d;  /* Even darker */
+  /* ... */
+}
+```
 
-1. **Enable GitHub Pages** in repository settings
-2. **Enable Discussions** for comment system
-3. **Configure giscus** with correct IDs
-4. **Customize branding** and colors
-5. **Integrate Perplexity** for content generation
-6. **Add image generation** workflow
-7. **Set up analytics** (Google Analytics, Plausible, etc.)
+### Fonts
 
-## License
+Edit `assets/css/typography.css`:
 
-MIT License - Feel free to customize and use!
+```css
+@import url('https://fonts.googleapis.com/css2?family=Your+Font');
+
+body {
+  font-family: 'Your Font', sans-serif;
+}
+```
+
+### Navigation
+
+Edit `_layouts/default.html`:
+
+```html
+<div class="nav-menu">
+  <a href="/your-page" class="nav-link">Your Page</a>
+  <!-- Add more links -->
+</div>
+```
+
+## 📝 Content Guidelines
+
+### Blog Categories
+
+- **Feature Friday**: Highlight platform features
+- **Grant Tips**: How-to guides and best practices
+- **Success Stories**: Funded organization profiles
+- **News**: Updates and announcements
+- **Resources**: Tools, templates, guides
+
+### SEO Best Practices
+
+1. Use descriptive titles (50-60 characters)
+2. Write compelling excerpts (150-160 characters)
+3. Include relevant tags (5-8 per post)
+4. Add alt text to images
+5. Use headings hierarchically (H2, H3)
+6. Internal linking to related posts
+
+### Image Specifications
+
+- **Featured Images**: 1200x630px (2:1 ratio)
+- **Author Avatars**: 200x200px (square)
+- **In-post Images**: Max width 1200px
+- **Format**: JPG or PNG
+- **Compression**: Optimize for web (<200KB)
+
+## 🔍 Search Configuration
+
+Search data auto-generates from Jekyll posts. To customize:
+
+Edit `search.json`:
+
+```liquid
+[
+  {% for post in site.posts %}
+    {
+      "title": {{ post.title | jsonify }},
+      "excerpt": {{ post.excerpt | jsonify }},
+      "url": {{ post.url | jsonify }}
+      # Add more fields as needed
+    }
+  {% endfor %}
+]
+```
+
+## 🌐 Deployment
+
+### GitHub Pages (Automatic)
+
+1. Push to `main` branch
+2. GitHub Actions builds automatically
+3. Live in 2-3 minutes at `https://El-apuesto.github.io/G3-gazette`
+
+### Custom Domain
+
+Add `CNAME` file:
+
+```
+blog.granthustle.org
+```
+
+Configure DNS:
+
+```
+CNAME blog.granthustle.org -> El-apuesto.github.io
+```
+
+## ⚙️ Configuration
+
+### Jekyll (_config.yml)
+
+```yaml
+title: G³ Gazette
+description: Your daily source for grant funding insights
+url: "https://blog.granthustle.org"
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+theme: minima
+plugins:
+  - jekyll-feed
+  - jekyll-seo-tag
+  - jekyll-sitemap
+
+# Comments (Giscus)
+comments:
+  enabled: true
+  giscus:
+    repo: "El-apuesto/G3-gazette"
+    repo_id: "your-repo-id"
+    category: "Announcements"
+    category_id: "your-category-id"
+```
+
+## 🧑‍💻 Development
+
+### Adding New Features
+
+1. Create feature branch: `git checkout -b feature/name`
+2. Make changes
+3. Test locally: `bundle exec jekyll serve`
+4. Commit: `git commit -am "Description"`
+5. Push: `git push origin feature/name`
+6. Create pull request
+
+### Testing Checklist
+
+- [ ] All pages load without errors
+- [ ] Search works (Ctrl+K)
+- [ ] Dark mode toggles properly
+- [ ] Mobile menu functions
+- [ ] Links work (no 404s)
+- [ ] Images load and display
+- [ ] Forms submit correctly
+- [ ] SEO meta tags present
+- [ ] Responsive on mobile/tablet
+- [ ] Browser compatibility (Chrome, Firefox, Safari)
+
+## 🐛 Known Issues
+
+None currently. Report issues at: https://github.com/El-apuesto/G3-gazette/issues
+
+## 📊 Analytics
+
+Add Google Analytics in `_layouts/default.html`:
+
+```html
+<!-- Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'GA_MEASUREMENT_ID');
+</script>
+```
+
+## 🔐 Security
+
+- No user authentication required
+- Static site (no server-side vulnerabilities)
+- HTTPS enforced via GitHub Pages
+- Regular dependency updates
+
+## 📜 License
+
+Copyright © 2026 Grant Hustle. All rights reserved.
+
+## 👥 Team
+
+- **El-apuesto** - Lead Developer
+- **Grant Genie Team** - Content & Strategy
+
+## 📧 Contact
+
+- Website: https://granthustle.org
+- Email: support@granthustle.org
+- Twitter: @GrantGenie
+
+## 🚀 Roadmap
+
+### Q1 2026
+- [x] Complete design overhaul
+- [x] Search functionality
+- [x] Dark mode
+- [ ] Newsletter integration
+- [ ] Interactive grant finder
+
+### Q2 2026
+- [ ] Webinar series pages
+- [ ] User comments (Giscus)
+- [ ] Advanced analytics dashboard
+- [ ] Multi-language support
 
 ---
 
-**Built with ❤️ using Jekyll, GitHub Actions, and AI automation**
+**Built with ❤️ by the Grant Genie Team**
+
+For daily grant opportunities and funding insights, visit [Grant Geenie App](https://app.granthustle.org)
