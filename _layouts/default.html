@@ -11,13 +11,17 @@
   
   <!-- Styles -->
   <link rel="stylesheet" href="{{ '/assets/css/typography.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/animations.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/blog-enhancements.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/search-and-nav.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
   <link rel="stylesheet" href="{{ '/assets/css/landing.css' | relative_url }}">
   
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
   
-  <!-- Dark Mode Toggle Script -->
+  <!-- Dark Mode Toggle Script (load early to prevent flash) -->
   <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
 </head>
 <body>
@@ -125,5 +129,7 @@
   
   <!-- Scripts -->
   <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/blog-enhancements.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
 </body>
 </html>
