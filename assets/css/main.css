@@ -1,10 +1,23 @@
-/* Grant Hustle Main Styles */
+/* Grant Hustle Main Styles - Updated with Emerald Theme */
 
 :root {
-    --primary-color: #2563eb;
-    --primary-dark: #1e40af;
+    /* Emerald Color Scheme (from grant-geenie) */
+    --primary-50: #f0fdf4;
+    --primary-100: #dcfce7;
+    --primary-200: #bbf7d0;
+    --primary-300: #86efac;
+    --primary-400: #4ade80;
+    --primary-500: #22c55e;
+    --primary-600: #16a34a;
+    --primary-700: #15803d;
+    --primary-800: #166534;
+    --primary-900: #145231;
+    
+    /* Light Mode Colors */
+    --primary-color: #22c55e;
+    --primary-dark: #16a34a;
     --secondary-color: #10b981;
-    --accent-color: #f59e0b;
+    --accent-color: #4ade80;
     --text-dark: #1f2937;
     --text-medium: #4b5563;
     --text-light: #6b7280;
@@ -12,6 +25,25 @@
     --bg-white: #ffffff;
     --border-color: #e5e7eb;
     --urgent-color: #ef4444;
+    --gradient-start: #22c55e;
+    --gradient-end: #15803d;
+}
+
+/* Dark Mode Colors */
+[data-theme="dark"] {
+    --primary-color: #4ade80;
+    --primary-dark: #22c55e;
+    --secondary-color: #34d399;
+    --accent-color: #86efac;
+    --text-dark: #f9fafb;
+    --text-medium: #d1d5db;
+    --text-light: #9ca3af;
+    --bg-light: #1f2937;
+    --bg-white: #111827;
+    --border-color: #374151;
+    --urgent-color: #f87171;
+    --gradient-start: #4ade80;
+    --gradient-end: #22c55e;
 }
 
 * {
@@ -25,12 +57,39 @@ body {
     color: var(--text-dark);
     line-height: 1.6;
     background: var(--bg-white);
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 .container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 1.5rem;
+}
+
+/* Dark Mode Toggle */
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(34, 197, 94, 0.4);
 }
 
 /* Navigation */
@@ -41,6 +100,7 @@ body {
     top: 0;
     z-index: 1000;
     box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    transition: background-color 0.3s ease, border-color 0.3s ease;
 }
 
 .nav-wrapper {
@@ -55,6 +115,7 @@ body {
     font-weight: 800;
     color: var(--primary-color);
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .dropdown {
@@ -71,11 +132,12 @@ body {
     border: none;
     border-radius: 0.5rem;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.3s ease;
 }
 
 .dropbtn:hover {
     background-color: var(--primary-dark);
+    transform: translateY(-2px);
 }
 
 .dropdown-content {
@@ -86,8 +148,10 @@ body {
     min-width: 220px;
     box-shadow: 0 8px 16px rgba(0,0,0,0.15);
     border-radius: 0.5rem;
+    border: 1px solid var(--border-color);
     z-index: 1;
     margin-top: 0.5rem;
+    transition: all 0.3s ease;
 }
 
 .dropdown-content a {
@@ -95,7 +159,7 @@ body {
     padding: 0.875rem 1.25rem;
     text-decoration: none;
     display: block;
-    transition: background 0.2s;
+    transition: all 0.3s ease;
 }
 
 .dropdown-content a:first-child {
@@ -116,10 +180,11 @@ body {
 
 /* Hero Section */
 .hero-section {
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     color: white;
     padding: 4rem 0;
     text-align: center;
+    transition: all 0.3s ease;
 }
 
 .hero-content {
@@ -158,6 +223,7 @@ body {
 .cta-section {
     padding: 3rem 0;
     background: var(--bg-light);
+    transition: background-color 0.3s ease;
 }
 
 .cta-buttons {
@@ -174,7 +240,7 @@ body {
     font-weight: 600;
     text-decoration: none;
     border-radius: 0.5rem;
-    transition: all 0.2s;
+    transition: all 0.3s ease;
     border: 2px solid transparent;
 }
 
@@ -191,11 +257,11 @@ body {
 .btn-primary:hover {
     background: var(--primary-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    box-shadow: 0 4px 12px rgba(34, 197, 94, 0.3);
 }
 
 .btn-secondary {
-    background: white;
+    background: var(--bg-white);
     color: var(--primary-color);
     border-color: var(--primary-color);
 }
@@ -216,6 +282,7 @@ body {
     font-weight: 700;
     margin-bottom: 1.5rem;
     color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .mission-content {
@@ -224,12 +291,14 @@ body {
     font-size: 1.125rem;
     line-height: 1.8;
     color: var(--text-medium);
+    transition: color 0.3s ease;
 }
 
 /* Grant News Section */
 .grant-news-section {
     padding: 4rem 0;
     background: var(--bg-light);
+    transition: background-color 0.3s ease;
 }
 
 .grant-news-section h2 {
@@ -237,6 +306,8 @@ body {
     font-weight: 700;
     text-align: center;
     margin-bottom: 3rem;
+    color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .news-grid {
@@ -246,21 +317,22 @@ body {
 }
 
 .news-card {
-    background: white;
+    background: var(--bg-white);
     padding: 2rem;
     border-radius: 1rem;
+    border: 1px solid var(--border-color);
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s ease;
 }
 
 .news-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 16px rgba(34, 197, 94, 0.2);
 }
 
 .news-tag {
     display: inline-block;
-    background: var(--secondary-color);
+    background: var(--primary-color);
     color: white;
     padding: 0.25rem 0.75rem;
     border-radius: 1rem;
@@ -273,17 +345,21 @@ body {
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
+    color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .news-card p {
     color: var(--text-medium);
     margin-bottom: 1rem;
+    transition: color 0.3s ease;
 }
 
 .news-link {
     color: var(--primary-color);
     font-weight: 600;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .news-link:hover {
@@ -300,6 +376,8 @@ body {
     font-weight: 700;
     text-align: center;
     margin-bottom: 3rem;
+    color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .deadlines-list {
@@ -310,12 +388,15 @@ body {
 .deadline-item {
     display: flex;
     gap: 2rem;
-    background: white;
+    background: var(--bg-white);
     padding: 1.5rem;
     border-radius: 0.75rem;
     border-left: 4px solid var(--primary-color);
+    border: 1px solid var(--border-color);
+    border-left: 4px solid var(--primary-color);
     margin-bottom: 1rem;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transition: all 0.3s ease;
 }
 
 .deadline-item.urgent {
@@ -327,6 +408,7 @@ body {
     font-weight: 700;
     color: var(--primary-color);
     min-width: 100px;
+    transition: color 0.3s ease;
 }
 
 .deadline-item.urgent .deadline-date {
@@ -337,11 +419,14 @@ body {
     font-size: 1.125rem;
     font-weight: 600;
     margin-bottom: 0.25rem;
+    color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .deadline-info p {
     color: var(--text-medium);
     margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
 }
 
 .deadline-tag {
@@ -352,6 +437,7 @@ body {
     border-radius: 1rem;
     font-size: 0.875rem;
     font-weight: 500;
+    transition: all 0.3s ease;
 }
 
 .deadline-item.urgent .deadline-tag {
@@ -367,6 +453,7 @@ body {
 .blog-preview-section {
     padding: 4rem 0;
     background: var(--bg-light);
+    transition: background-color 0.3s ease;
 }
 
 .section-header {
@@ -379,6 +466,8 @@ body {
 .section-header h2 {
     font-size: 2.5rem;
     font-weight: 700;
+    color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .view-all-link {
@@ -386,6 +475,7 @@ body {
     font-weight: 600;
     text-decoration: none;
     font-size: 1.125rem;
+    transition: color 0.3s ease;
 }
 
 .view-all-link:hover {
@@ -399,22 +489,23 @@ body {
 }
 
 .blog-card {
-    background: white;
+    background: var(--bg-white);
     border-radius: 1rem;
+    border: 1px solid var(--border-color);
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-    transition: transform 0.2s, box-shadow 0.2s;
+    transition: all 0.3s ease;
 }
 
 .blog-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 16px rgba(0,0,0,0.12);
+    box-shadow: 0 8px 16px rgba(34, 197, 94, 0.2);
 }
 
 .blog-image {
     width: 100%;
     height: 200px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -445,17 +536,21 @@ body {
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
+    color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .blog-card p {
     color: var(--text-medium);
     margin-bottom: 1rem;
+    transition: color 0.3s ease;
 }
 
 .read-more {
     color: var(--primary-color);
     font-weight: 600;
     text-decoration: none;
+    transition: color 0.3s ease;
 }
 
 .read-more:hover {
@@ -472,6 +567,8 @@ body {
     font-weight: 700;
     text-align: center;
     margin-bottom: 3rem;
+    color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .features-grid {
@@ -494,17 +591,21 @@ body {
     font-size: 1.25rem;
     font-weight: 700;
     margin-bottom: 0.75rem;
+    color: var(--text-dark);
+    transition: color 0.3s ease;
 }
 
 .feature-card p {
     color: var(--text-medium);
+    transition: color 0.3s ease;
 }
 
 /* Newsletter Section */
 .newsletter-section {
     padding: 4rem 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--gradient-start) 0%, var(--gradient-end) 100%);
     color: white;
+    transition: all 0.3s ease;
 }
 
 .newsletter-content {
@@ -539,6 +640,9 @@ body {
     border: none;
     border-radius: 0.5rem;
     font-size: 1rem;
+    background: var(--bg-white);
+    color: var(--text-dark);
+    transition: all 0.3s ease;
 }
 
 .newsletter-form button {
@@ -551,6 +655,10 @@ body {
     background: var(--text-dark);
     color: white;
     padding: 3rem 0 1.5rem;
+}
+
+[data-theme="dark"] .main-footer {
+    background: #0a0f1a;
 }
 
 .footer-grid {
@@ -598,6 +706,14 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
+    .theme-toggle {
+        top: 10px;
+        right: 10px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.25rem;
+    }
+    
     .hero-section h1 {
         font-size: 2rem;
     }
