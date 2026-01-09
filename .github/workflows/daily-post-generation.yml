@@ -34,7 +34,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install requests openai
+          pip install requests
 
       - name: Determine post details
         id: post_info
@@ -69,7 +69,6 @@ jobs:
       - name: Research and generate blog post
         env:
           PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           POST_DATE: ${{ steps.post_info.outputs.date }}
           POST_TIME: ${{ steps.post_info.outputs.time }}
           POST_CATEGORY: ${{ steps.post_info.outputs.category }}
@@ -131,47 +130,7 @@ jobs:
           # Get queries for today's category
           queries = research_queries.get(category, ['grant funding news 2026'])
 
-          # Function to research using Perplexity API
-          def research_topic(query):
-              api_key = os.environ.get('PERPLEXITY_API_KEY')
-              if not api_key:
-                  return None
-              
-              headers = {
-                  'Authorization': f'Bearer {api_key}',
-                  'Content-Type': 'application/json'
-              }
-              
-              data = {
-                  'model': 'llama-3.1-sonar-small-128k-online',
-                  'messages': [
-                      {
-                          'role': 'system',
-                          'content': 'You are a grant funding expert researcher. Provide current, factual information about grants, funding opportunities, and related topics.'
-                      },
-                      {
-                          'role': 'user',
-                          'content': f'Research the following topic and provide key insights, recent developments, and important information: {query}'
-                      }
-                  ],
-                  'temperature': 0.7,
-                  'max_tokens': 2000
-              }
-              
-              try:
-                  response = requests.post(
-                      'https://api.perplexity.ai/chat/completions',
-                      headers=headers,
-                      json=data,
-                      timeout=30
-                  )
-                  response.raise_for_status()
-                  return response.json()['choices'][0]['message']['content']
-              except Exception as e:
-                  print(f'Research error: {e}')
-                  return None
-
-          # Research the topic
+          # Determine Topic
           if custom_topic:
               topic = custom_topic
               research_query = custom_topic
@@ -180,69 +139,87 @@ jobs:
               research_query = queries[0]
               topic = f"Current Trends in {category.replace(day.capitalize() + ' ', '')}"
 
-          print(f'Researching: {research_query}')
-          research_content = research_topic(research_query)
+          print(f'Topic: {topic}')
+          print(f'Research Query: {research_query}')
 
-          # Generate blog post with OpenAI if Perplexity succeeds
-          if research_content:
-              api_key = os.environ.get('OPENAI_API_KEY')
-              if api_key:
-                  headers = {
-                      'Authorization': f'Bearer {api_key}',
-                      'Content-Type': 'application/json'
-                  }
-                  
-                  prompt = f"""Based on this research about {topic}:
+          # Function to research AND write using Perplexity API (Sonar)
+          def generate_full_article(query, topic_title, cat):
+              api_key = os.environ.get('PERPLEXITY_API_KEY')
+              if not api_key:
+                  print("Error: PERPLEXITY_API_KEY not found in environment variables.")
+                  return None
+              
+              headers = {
+                  'Authorization': f'Bearer {api_key}',
+                  'Content-Type': 'application/json'
+              }
+              
+              system_prompt = """You are an expert grant funding writer for the blog 'G3 Gazette'.
+              Your goal is to write a comprehensive, engaging, and professional blog post.
+              You have access to real-time information. Use it to find the latest specific details.
+              
+              Format requirements:
+              - Use Markdown formatting.
+              - Include an attention-grabbing introduction.
+              - Include 3-4 main sections with clear subheadings (## Subheading).
+              - Provide actionable insights and tips.
+              - Include specific, real-world examples or recent news.
+              - End with a 'Key Takeaways' section and a 'Conclusion'.
+              - Tone: Professional, encouraging, and authoritative.
+              - Length: 800-1200 words.
+              """
 
-          {research_content}
+              user_prompt = f"""Write a full blog post for the category '{cat}'.
+              Topic: {topic_title}
+              Focus your research on: {query}
+              
+              Ensure the content is up-to-date for 2026.
+              """
+              
+              data = {
+                  'model': 'llama-3.1-sonar-large-128k-online', 
+                  'messages': [
+                      {
+                          'role': 'system',
+                          'content': system_prompt
+                      },
+                      {
+                          'role': 'user',
+                          'content': user_prompt
+                      }
+                  ],
+                  'temperature': 0.7,
+                  'max_tokens': 3000
+              }
+              
+              try:
+                  print("Sending request to Perplexity API...")
+                  response = requests.post(
+                      'https://api.perplexity.ai/chat/completions',
+                      headers=headers,
+                      json=data,
+                      timeout=120
+                  )
+                  response.raise_for_status()
+                  return response.json()['choices'][0]['message']['content']
+              except Exception as e:
+                  print(f'Generation error: {e}')
+                  if 'response' in locals():
+                      print(f'Response content: {response.text}')
+                  return None
 
-          Write a comprehensive, engaging blog post for a grant funding blog. The post should:
-          - Have an attention-grabbing introduction
-          - Include 3-4 main sections with subheadings
-          - Provide actionable insights and tips
-          - Include specific examples where possible
-          - End with key takeaways
-          - Be written in a professional but conversational tone
-          - Be 800-1200 words
-          - Use markdown formatting
+          # Generate the content
+          blog_content = generate_full_article(research_query, topic, category)
 
-          Category: {category}
-          Target audience: Nonprofits, artists, solopreneurs seeking grants
-          """
-                  
-                  data = {
-                      'model': 'gpt-4-turbo-preview',
-                      'messages': [
-                          {'role': 'system', 'content': 'You are an expert grant funding writer.'},
-                          {'role': 'user', 'content': prompt}
-                      ],
-                      'temperature': 0.8,
-                      'max_tokens': 3000
-                  }
-                  
-                  try:
-                      response = requests.post(
-                          'https://api.openai.com/v1/chat/completions',
-                          headers=headers,
-                          json=data,
-                          timeout=60
-                      )
-                      response.raise_for_status()
-                      blog_content = response.json()['choices'][0]['message']['content']
-                  except Exception as e:
-                      print(f'Generation error: {e}')
-                      blog_content = research_content
-              else:
-                  blog_content = research_content
-          else:
-              # Fallback content if research fails
+          if not blog_content:
+              # Fallback content if generation fails
               blog_content = f"""## Introduction
 
           Welcome to today's {category} post!
 
           ## Main Content
 
-          [Content generation pending - API keys not configured]
+          [Content generation failed - Please check Perplexity API Key configuration]
 
           ## Key Takeaways
 
@@ -286,7 +263,6 @@ jobs:
               f.write(post_content)
 
           print(f'Created post: {filename}')
-          print(f'Topic: {topic}')
           EOF
 
       - name: Commit and push
