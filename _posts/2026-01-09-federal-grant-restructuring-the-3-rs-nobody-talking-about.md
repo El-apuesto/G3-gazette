@@ -2,12 +2,12 @@
 layout: post
 title: "The Federal Grant Shake-Up Nobody's Talking About: Understanding the 3 Rs"
 date: 2026-01-09 18:59:00 -0600
-category: Feature Friday
+category: Thought Thursday
 author: Grant Genie Team
 author_title: Grant Research Specialists
 author_bio: The Grant Genie Team is dedicated to democratizing access to grant funding information and helping nonprofits navigate the complex world of federal and foundation grants.
 featured_image: /assets/images/posts/2026-01-09-federal-restructuring.jpg
-tags: [federal grants, grant strategy, nonprofit funding, 2026 trends, grant restructuring]
+tags: [thought thursday, federal grants, grant strategy, nonprofit funding, 2026 trends, grant restructuring]
 excerpt: "A massive federal grant restructuring is underway in 2026, but most nonprofits have no idea it's happening. Here's what the 3 Rs mean for your funding strategy."
 ---
 
