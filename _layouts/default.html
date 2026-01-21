@@ -13,18 +13,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   
-  <!-- Styles -->
-  <link rel="stylesheet" href="{{ '/assets/css/typography.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/animations.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/blog-enhancements.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/search-and-nav.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/mobile-fixes.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/newsletter.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/archive.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/seo.css' | relative_url }}">
+  <!-- Modern Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  
+  <!-- Main Stylesheet - Award-Worthy Design -->
   <link rel="stylesheet" href="{{ '/assets/css/main.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/custom.css' | relative_url }}">
-  <link rel="stylesheet" href="{{ '/assets/css/landing.css' | relative_url }}">
   
   <!-- Favicon -->
   <link rel="icon" type="image/x-icon" href="{{ '/assets/images/favicon.ico' | relative_url }}">
@@ -46,126 +39,93 @@
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:site" content="@granthustle">
-  
-  <!-- Dark Mode Toggle Script (load early to prevent flash) -->
-  <script src="{{ '/assets/js/theme-toggle.js' | relative_url }}"></script>
 </head>
 <body>
   
-  <!-- Skip to Content (Accessibility) -->
-  <a href="#main-content" class="skip-to-content">Skip to main content</a>
-  
-  <!-- Navigation -->
-  <nav class="main-nav">
-    <div class="nav-container">
-      <div class="nav-brand">
-        <a href="/">Grant Hustle</a>
-      </div>
-      
-      <button class="mobile-menu-toggle" aria-label="Toggle menu">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
-      
-      <div class="nav-menu">
-        <a href="https://app.granthustle.org" class="nav-link nav-highlight">Launch App</a>
-        <a href="https://blog.granthustle.org" class="nav-link">G³ Blog</a>
-        
-        <div class="nav-dropdown">
-          <button class="nav-link dropdown-toggle">Resources ▾</button>
-          <div class="dropdown-menu">
-            <a href="/about">About Us</a>
-            <a href="/mission">Mission Statement</a>
-            <a href="/resources">Grant Resources</a>
-            <a href="/referral">Referral Program</a>
-            <a href="/affiliate">Affiliate Marketing</a>
-          </div>
+  <!-- Header -->
+  <header class="site-header">
+    <div class="header-content">
+      <a href="{{ '/' | relative_url }}" class="site-logo">
+        <div>
+          <h1 class="site-title">G³ Gazette</h1>
+          <p class="site-tagline">Grant Genie's Daily Insights</p>
         </div>
-        
-        <div class="nav-dropdown">
-          <button class="nav-link dropdown-toggle">Legal ▾</button>
-          <div class="dropdown-menu">
-            <a href="/terms">Terms of Service</a>
-            <a href="/privacy">Privacy Policy</a>
-            <a href="/refund">Refund Policy</a>
-          </div>
-        </div>
-        
-        <a href="/newsletter" class="nav-link nav-cta">Newsletter</a>
-      </div>
+      </a>
+      
+      <nav class="main-nav">
+        <ul>
+          <li><a href="{{ '/' | relative_url }}" {% if page.url == '/' %}class="active"{% endif %}>Home</a></li>
+          <li><a href="{{ '/about' | relative_url }}" {% if page.url contains '/about' %}class="active"{% endif %}>About</a></li>
+          <li><a href="{{ '/archive' | relative_url }}" {% if page.url contains '/archive' %}class="active"{% endif %}>Archive</a></li>
+          <li><a href="{{ '/resources' | relative_url }}" {% if page.url contains '/resources' %}class="active"{% endif %}>Resources</a></li>
+          <li><a href="{{ '/newsletter' | relative_url }}" {% if page.url contains '/newsletter' %}class="active"{% endif %}>Newsletter</a></li>
+          <li><a href="https://app.granthustle.org" class="btn-primary" style="padding: 0.5rem 1.5rem; border-radius: 0.5rem;">Launch App</a></li>
+        </ul>
+      </nav>
     </div>
-  </nav>
+  </header>
   
   <!-- Main Content -->
-  <main class="main-content" id="main-content">
+  <main class="main-content">
     {{ content }}
   </main>
   
   <!-- Footer -->
-  <footer class="main-footer">
-    <div class="container">
-      <div class="footer-grid">
-        <div class="footer-column">
-          <h3>Grant Hustle</h3>
-          <p>Democratizing access to grants and funding opportunities.</p>
-          <div class="social-links">
-            <a href="https://twitter.com/granthustle" aria-label="Twitter" rel="noopener">𝕏</a>
-            <a href="https://linkedin.com/company/granthustle" aria-label="LinkedIn" rel="noopener">in</a>
-            <a href="https://facebook.com/granthustle" aria-label="Facebook" rel="noopener">f</a>
-          </div>
-        </div>
-        
-        <div class="footer-column">
-          <h4>Product</h4>
-          <a href="https://app.granthustle.org">Grant Geenie App</a>
-          <a href="https://blog.granthustle.org">G³ Blog</a>
-          <a href="/archive">Blog Archive</a>
-          <a href="/pricing">Pricing</a>
-          <a href="/features">Features</a>
-        </div>
-        
-        <div class="footer-column">
-          <h4>Company</h4>
-          <a href="/about">About</a>
-          <a href="/mission">Mission</a>
-          <a href="/contact">Contact</a>
-          <a href="/careers">Careers</a>
-        </div>
-        
-        <div class="footer-column">
-          <h4>Legal</h4>
-          <a href="/terms">Terms of Service</a>
-          <a href="/privacy">Privacy Policy</a>
-          <a href="/refund">Refund Policy</a>
-          <a href="/cookies">Cookie Policy</a>
-        </div>
-        
-        <div class="footer-column">
-          <h4>Resources</h4>
-          <a href="/resources">Grant Resources</a>
-          <a href="/referral">Referral Program</a>
-          <a href="/affiliate">Affiliate Program</a>
-          <a href="/newsletter">Newsletter</a>
-          <a href="/feed.xml" rel="alternate" type="application/rss+xml">RSS Feed</a>
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>G³ Gazette</h3>
+        <p>Your daily source for grant funding insights, research opportunities, and success stories. Powered by Grant Genie AI.</p>
+        <div class="social-links">
+          <a href="https://twitter.com/granthustle" class="social-link" aria-label="Twitter" rel="noopener">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+          </a>
+          <a href="https://linkedin.com/company/granthustle" class="social-link" aria-label="LinkedIn" rel="noopener">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+          </a>
+          <a href="https://facebook.com/granthustle" class="social-link" aria-label="Facebook" rel="noopener">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+          </a>
         </div>
       </div>
       
-      <div class="footer-bottom">
-        <p>&copy; {{ 'now' | date: '%Y' }} Grant Hustle. All rights reserved.</p>
-        <p>Built with ❤️ to honor those who inspire us to make a difference.</p>
+      <div class="footer-section">
+        <h3>Quick Links</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/' | relative_url }}">Home</a></li>
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/about' | relative_url }}">About</a></li>
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/mission' | relative_url }}">Mission</a></li>
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/archive' | relative_url }}">Archive</a></li>
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/resources' | relative_url }}">Resources</a></li>
+        </ul>
       </div>
+      
+      <div class="footer-section">
+        <h3>Categories</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/category/innovation-monday' | relative_url }}">Innovation Monday</a></li>
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/category/tutorial-tuesday' | relative_url }}">Tutorial Tuesday</a></li>
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/category/feature-friday' | relative_url }}">Feature Friday</a></li>
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/category/strategy-saturday' | relative_url }}">Strategy Saturday</a></li>
+        </ul>
+      </div>
+      
+      <div class="footer-section">
+        <h3>Legal</h3>
+        <ul style="list-style: none; padding: 0;">
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/terms' | relative_url }}">Terms of Service</a></li>
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/privacy' | relative_url }}">Privacy Policy</a></li>
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/refund' | relative_url }}">Refund Policy</a></li>
+          <li style="margin-bottom: 0.75rem;"><a href="{{ '/feed.xml' | relative_url }}">RSS Feed</a></li>
+        </ul>
+      </div>
+    </div>
+    
+    <div class="footer-bottom">
+      <p>&copy; {{ 'now' | date: '%Y' }} Grant Hustle. All rights reserved.</p>
+      <p style="margin-top: 0.5rem; color: var(--lime-accent);">Powered by Grant Genie AI 🧞‍♂️</p>
     </div>
   </footer>
   
-  <!-- Scripts -->
-  <script src="{{ '/assets/js/navigation.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/blog-enhancements.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/search.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/newsletter.js' | relative_url }}"></script>
-  <script src="{{ '/assets/js/performance.js' | relative_url }}"></script>
-  
-  <!-- Analytics (add your tracking code here) -->
-  <!-- <script async src="https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID"></script> -->
 </body>
 </html>
