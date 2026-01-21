@@ -1,110 +1,93 @@
 ---
 layout: default
-title: "G³ - Grant Genie Gazette"
+title: "Home"
 ---
 
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="hero-title">Unlock Grant Funding With AI-Powered Insights</h1>
+    <p class="hero-description">
+      Your daily source for grant opportunities, expert strategies, and success stories. 
+      Join thousands of researchers, nonprofits, and innovators transforming ideas into funded projects.
+    </p>
+    <div class="hero-cta">
+      <a href="https://app.granthustle.org" class="btn btn-primary">Launch Grant Genie →</a>
+      <a href="{{ '/newsletter' | relative_url }}" class="btn btn-secondary">Subscribe to Newsletter</a>
+    </div>
+  </div>
+</section>
+
 <!-- Featured Post Section -->
-{% if site.posts.size > 0 %}
+{% assign featured_post = site.posts | where: "featured", true | first %}
+{% if featured_post %}
 <section class="featured-post">
-  {% assign featured_post = site.posts.first %}
-  <article class="post-featured">
-    {% if featured_post.featured_image %}
-    <div class="featured-image">
-      <img src="{{ featured_post.featured_image }}" alt="{{ featured_post.title }}">
-    </div>
-    {% endif %}
-    <div class="featured-content">
-      <span class="post-category">{{ featured_post.category }}</span>
-      <h1><a href="{{ featured_post.url }}">{{ featured_post.title }}</a></h1>
-      <div class="post-meta">
-        <time datetime="{{ featured_post.date | date_to_xmlschema }}">{{ featured_post.date | date: "%B %-d, %Y" }}</time>
-        <span class="separator">•</span>
-        <span class="author">{{ featured_post.author }}</span>
-      </div>
-      <p class="excerpt">{{ featured_post.excerpt | strip_html | truncatewords: 40 }}</p>
-      <a href="{{ featured_post.url }}" class="btn btn-primary">Read More</a>
-    </div>
-  </article>
+  <span class="featured-badge">⭐ Featured Article</span>
+  <h2 class="post-title">
+    <a href="{{ featured_post.url | relative_url }}" style="color: white; text-decoration: none;">{{ featured_post.title }}</a>
+  </h2>
+  <p class="post-excerpt">{{ featured_post.excerpt | strip_html | truncate: 200 }}</p>
+  <div class="post-meta">
+    <span class="post-author">{{ featured_post.author | default: site.author.name }}</span>
+    <span class="post-date">{{ featured_post.date | date: "%B %d, %Y" }}</span>
+  </div>
+  <a href="{{ featured_post.url | relative_url }}" class="btn btn-secondary" style="margin-top: 1.5rem; display: inline-block;">Read Full Article →</a>
 </section>
 {% endif %}
 
-<!-- Recent Posts Grid -->
-<section class="recent-posts">
-  <div class="section-header">
-    <h2>Recent Articles</h2>
-  </div>
+<!-- Latest Posts Section -->
+<section>
+  <h2 style="font-size: 2.5rem; font-weight: 800; color: var(--slate-900); margin-bottom: 2rem; text-align: center;">
+    Latest Grant Insights
+  </h2>
   
+  <!-- Posts Grid -->
   <div class="posts-grid">
-    {% for post in site.posts limit:9 offset:1 %}
-    <article class="post-card">
-      {% if post.featured_image %}
-      <div class="post-image">
-        <a href="{{ post.url }}">
-          <img src="{{ post.featured_image }}" alt="{{ post.title }}">
-        </a>
-      </div>
-      {% endif %}
-      <div class="post-content">
-        <span class="post-category">{{ post.category }}</span>
-        <h3><a href="{{ post.url }}">{{ post.title }}</a></h3>
-        <div class="post-meta">
-          <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %-d, %Y" }}</time>
+    {% assign display_posts = site.posts | where_exp: "post", "post.featured != true" | slice: 0, 9 %}
+    {% for post in display_posts %}
+      <article class="post-card">
+        {% if post.featured_image %}
+          <img src="{{ post.featured_image | relative_url }}" alt="{{ post.title }}" class="post-image" loading="lazy">
+        {% else %}
+          <div class="post-image" style="background: var(--gradient-primary); display: flex; align-items: center; justify-content: center; color: white; font-size: 3rem;">
+            📝
+          </div>
+        {% endif %}
+        
+        <div class="post-content">
+          <span class="post-category">{{ post.category | default: "Grant Insights" }}</span>
+          
+          <h3 class="post-title">
+            <a href="{{ post.url | relative_url }}">{{ post.title }}</a>
+          </h3>
+          
+          <p class="post-excerpt">{{ post.excerpt | strip_html | truncate: 120 }}</p>
+          
+          <div class="post-meta">
+            <span class="post-author">
+              <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24" style="display: inline-block; vertical-align: middle;">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+              </svg>
+              {{ post.author | default: site.author.name }}
+            </span>
+            <span class="post-date">{{ post.date | date: "%b %d" }}</span>
+          </div>
         </div>
-        <p class="excerpt">{{ post.excerpt | strip_html | truncatewords: 25 }}</p>
-        <a href="{{ post.url }}" class="read-more">Read more →</a>
-      </div>
-    </article>
+      </article>
     {% endfor %}
   </div>
-</section>
-
-<!-- Categories Section -->
-<section class="categories-section">
-  <h2>Explore by Category</h2>
-  <div class="categories-grid">
-    <a href="/archive.html?category=Innovation Monday" class="category-card">
-      <span class="category-icon">💡</span>
-      <h3>Innovation Monday</h3>
-      <p>Cutting-edge research and discoveries</p>
-    </a>
-    <a href="/archive.html?category=Tutorial Tuesday" class="category-card">
-      <span class="category-icon">📚</span>
-      <h3>Tutorial Tuesday</h3>
-      <p>Step-by-step guides and how-tos</p>
-    </a>
-    <a href="/archive.html?category=Wisdom Wednesday" class="category-card">
-      <span class="category-icon">🧠</span>
-      <h3>Wisdom Wednesday</h3>
-      <p>Insights and thought leadership</p>
-    </a>
-    <a href="/archive.html?category=Thought Thursday" class="category-card">
-      <span class="category-icon">💭</span>
-      <h3>Thought Thursday</h3>
-      <p>Deep dives and analysis</p>
-    </a>
-    <a href="/archive.html?category=Feature Friday" class="category-card">
-      <span class="category-icon">⭐</span>
-      <h3>Feature Friday</h3>
-      <p>Spotlights and highlights</p>
-    </a>
-    <a href="/archive.html?category=Strategy Saturday" class="category-card">
-      <span class="category-icon">🎯</span>
-      <h3>Strategy Saturday</h3>
-      <p>Planning and best practices</p>
-    </a>
-    <a href="/archive.html?category=Summary Sunday" class="category-card">
-      <span class="category-icon">📊</span>
-      <h3>Summary Sunday</h3>
-      <p>Weekly roundups and reviews</p>
-    </a>
+  
+  <!-- View All Posts Button -->
+  <div style="text-align: center; margin-top: 3rem;">
+    <a href="{{ '/archive' | relative_url }}" class="btn btn-primary">View All Posts →</a>
   </div>
 </section>
 
-<!-- Newsletter CTA -->
-<section class="newsletter-cta">
-  <div class="cta-content">
-    <h2>Never Miss an Update</h2>
-    <p>Get the latest insights, research, and discoveries delivered to your inbox.</p>
-    <a href="/newsletter" class="btn btn-primary btn-large">Subscribe to Newsletter</a>
-  </div>
+<!-- Newsletter CTA Section -->
+<section style="background: var(--gradient-primary); padding: 4rem var(--container-padding); margin-top: 5rem; border-radius: 1.5rem; text-align: center; color: white;">
+  <h2 style="font-size: 2.5rem; font-weight: 800; margin-bottom: 1rem; color: white;">Stay Ahead in Grant Funding</h2>
+  <p style="font-size: 1.25rem; margin-bottom: 2rem; color: rgba(255, 255, 255, 0.9); max-width: 600px; margin-left: auto; margin-right: auto;">
+    Get weekly grant opportunities, expert tips, and success stories delivered to your inbox.
+  </p>
+  <a href="{{ '/newsletter' | relative_url }}" class="btn" style="background: var(--lime-accent); color: var(--slate-900);">Subscribe Now →</a>
 </section>
